@@ -6,6 +6,8 @@
 
 <title>RECARGAS PLUS | Gaming & Servicios Digitales</title>
 
+<meta name="description" content="RECARGAS PLUS - Recargas de videojuegos, entretenimiento y servicios digitales. Consulta precios y disponibilidad por WhatsApp.">
+
 <style>
 *{
   margin:0;
@@ -17,22 +19,34 @@ html{
   scroll-behavior:smooth;
 }
 
+:root{
+  --bg:#07070b;
+  --bg2:#0d0b13;
+  --card:rgba(255,255,255,.055);
+  --border:rgba(255,255,255,.09);
+  --purple:#913cff;
+  --purple2:#b15cff;
+  --text:#fff;
+  --muted:#9b96a6;
+  --success:#35e58b;
+}
+
 body{
   font-family:Arial,Helvetica,sans-serif;
   background:
-    radial-gradient(circle at 20% 10%,rgba(126,55,255,.18),transparent 30%),
-    radial-gradient(circle at 80% 30%,rgba(95,30,180,.13),transparent 30%),
-    #07070b;
-  color:#fff;
+    radial-gradient(circle at 15% 5%,rgba(126,55,255,.18),transparent 30%),
+    radial-gradient(circle at 85% 25%,rgba(95,30,180,.13),transparent 30%),
+    var(--bg);
+  color:var(--text);
   overflow-x:hidden;
 }
 
-/* FONDO */
 body::before{
   content:"";
   position:fixed;
   inset:0;
   pointer-events:none;
+  z-index:-1;
   background:
     linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),
     linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent 1px);
@@ -40,67 +54,252 @@ body::before{
   mask-image:linear-gradient(to bottom,#000,transparent);
 }
 
-/* HEADER */
+/* ================= HEADER ================= */
+
 header{
   position:fixed;
   top:0;
   left:0;
   width:100%;
-  z-index:1000;
-  padding:18px 6%;
+  z-index:2000;
+  padding:16px 6%;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  background:rgba(5,5,9,.65);
-  backdrop-filter:blur(16px);
+  background:rgba(5,5,9,.72);
+  backdrop-filter:blur(18px);
   border-bottom:1px solid rgba(255,255,255,.07);
 }
 
 .logo{
-  font-size:22px;
-  font-weight:900;
-  letter-spacing:2px;
   color:white;
   text-decoration:none;
+  font-size:21px;
+  font-weight:900;
+  letter-spacing:2px;
   text-shadow:
     0 0 8px rgba(158,83,255,.8),
     0 0 25px rgba(122,43,255,.5);
 }
 
 .logo span{
-  color:#a65cff;
+  color:var(--purple2);
 }
 
-nav{
+.desktop-nav{
   display:flex;
-  gap:25px;
+  align-items:center;
+  gap:23px;
 }
 
-nav a{
-  color:#bdb9c9;
+.desktop-nav a{
+  color:#bbb7c5;
   text-decoration:none;
   font-size:14px;
   transition:.3s;
 }
 
-nav a:hover{
-  color:#b86cff;
+.desktop-nav a:hover{
+  color:#c58aff;
 }
 
-/* HERO */
+.header-actions{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.header-btn{
+  width:42px;
+  height:42px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.09);
+  background:rgba(255,255,255,.04);
+  color:white;
+  cursor:pointer;
+  font-size:18px;
+  position:relative;
+  transition:.3s;
+}
+
+.header-btn:hover{
+  background:rgba(145,60,255,.16);
+  border-color:rgba(177,92,255,.5);
+  transform:translateY(-2px);
+}
+
+.cart-count{
+  position:absolute;
+  top:-5px;
+  right:-5px;
+  min-width:18px;
+  height:18px;
+  padding:0 4px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  border-radius:20px;
+  background:#9b42ff;
+  color:#fff;
+  font-size:10px;
+  font-weight:bold;
+  box-shadow:0 0 12px rgba(155,66,255,.7);
+}
+
+.menu-btn{
+  display:none;
+}
+
+/* ================= MOBILE MENU ================= */
+
+.mobile-menu{
+  position:fixed;
+  top:0;
+  right:-100%;
+  width:min(320px,88%);
+  height:100vh;
+  z-index:3000;
+  padding:90px 25px 30px;
+  background:rgba(10,8,15,.97);
+  backdrop-filter:blur(25px);
+  border-left:1px solid rgba(255,255,255,.08);
+  transition:.35s ease;
+}
+
+.mobile-menu.active{
+  right:0;
+}
+
+.mobile-menu a{
+  display:block;
+  padding:16px 10px;
+  color:#ccc7d5;
+  text-decoration:none;
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+.mobile-menu a:hover{
+  color:#bb75ff;
+}
+
+.close-menu{
+  position:absolute;
+  top:20px;
+  right:20px;
+  background:none;
+  border:0;
+  color:#fff;
+  font-size:25px;
+  cursor:pointer;
+}
+
+.menu-overlay{
+  position:fixed;
+  inset:0;
+  z-index:2500;
+  background:rgba(0,0,0,.65);
+  opacity:0;
+  pointer-events:none;
+  transition:.3s;
+}
+
+.menu-overlay.active{
+  opacity:1;
+  pointer-events:auto;
+}
+
+/* ================= GENERAL ================= */
+
+main{
+  min-height:100vh;
+}
+
+.view{
+  display:none;
+  animation:pageIn .45s ease;
+}
+
+.view.active{
+  display:block;
+}
+
+@keyframes pageIn{
+  from{
+    opacity:0;
+    transform:translateY(15px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+section{
+  padding:100px 7%;
+  position:relative;
+}
+
+.section-title{
+  text-align:center;
+  margin-bottom:42px;
+}
+
+.section-title h2{
+  font-size:35px;
+  margin-bottom:10px;
+}
+
+.section-title p{
+  color:#8f8a99;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:14px 22px;
+  border-radius:13px;
+  text-decoration:none;
+  font-weight:bold;
+  color:white;
+  border:1px solid rgba(178,101,255,.5);
+  background:linear-gradient(135deg,#792cff,#a34dff);
+  box-shadow:0 0 25px rgba(139,48,255,.25);
+  transition:.3s;
+  cursor:pointer;
+}
+
+.btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 0 35px rgba(153,65,255,.55);
+}
+
+.btn.secondary{
+  background:rgba(255,255,255,.04);
+}
+
+.buttons{
+  margin-top:30px;
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+/* ================= HERO ================= */
+
 .hero{
   min-height:100vh;
-  padding:140px 7% 80px;
+  padding:140px 7% 90px;
   display:flex;
   align-items:center;
   justify-content:center;
   text-align:center;
-  position:relative;
 }
 
 .hero-content{
-  max-width:850px;
-  animation:entrada 1.2s ease forwards;
+  max-width:900px;
 }
 
 .logo-hero{
@@ -121,81 +320,104 @@ nav a:hover{
   color:#a95cff;
 }
 
-.hero h2{
+.hero h1{
   font-size:clamp(20px,4vw,34px);
   margin-bottom:18px;
 }
 
 .hero p{
   color:#aaa5b5;
-  max-width:650px;
+  max-width:680px;
   margin:auto;
   line-height:1.7;
   font-size:16px;
 }
 
-.buttons{
-  margin-top:35px;
-  display:flex;
-  justify-content:center;
-  gap:15px;
-  flex-wrap:wrap;
+/* ================= SEARCH ================= */
+
+.search-section{
+  padding-top:120px;
+  min-height:100vh;
 }
 
-.btn{
-  padding:15px 25px;
-  border-radius:13px;
-  text-decoration:none;
-  font-weight:bold;
-  color:white;
-  border:1px solid rgba(178,101,255,.5);
-  background:linear-gradient(135deg,#792cff,#a34dff);
-  box-shadow:0 0 25px rgba(139,48,255,.25);
-  transition:.3s;
-}
-
-.btn:hover{
-  transform:translateY(-4px) scale(1.02);
-  box-shadow:0 0 35px rgba(153,65,255,.55);
-}
-
-.btn.secondary{
-  background:rgba(255,255,255,.04);
-}
-
-/* SECCIONES */
-section{
-  padding:90px 7%;
+.search-box{
+  max-width:850px;
+  margin:0 auto 35px;
   position:relative;
 }
 
-.section-title{
-  text-align:center;
-  margin-bottom:45px;
+.search-box input{
+  width:100%;
+  padding:19px 55px 19px 22px;
+  border-radius:16px;
+  border:1px solid rgba(177,92,255,.25);
+  outline:none;
+  color:#fff;
+  font-size:15px;
+  background:rgba(255,255,255,.045);
+  box-shadow:0 15px 50px rgba(0,0,0,.2);
 }
 
-.section-title h2{
-  font-size:35px;
-  margin-bottom:10px;
+.search-box input:focus{
+  border-color:rgba(177,92,255,.7);
+  box-shadow:0 0 30px rgba(143,54,255,.12);
 }
 
-.section-title p{
-  color:#8f8a99;
+.search-icon{
+  position:absolute;
+  right:20px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:20px;
 }
 
-/* TARJETAS */
+.search-results{
+  max-width:1100px;
+  margin:auto;
+}
+
+/* ================= CATEGORIES ================= */
+
+.category-row{
+  max-width:1100px;
+  margin:0 auto 35px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+
+.category-btn{
+  padding:10px 16px;
+  border-radius:30px;
+  border:1px solid rgba(255,255,255,.08);
+  color:#aaa5b4;
+  background:rgba(255,255,255,.035);
+  cursor:pointer;
+  transition:.3s;
+}
+
+.category-btn:hover,
+.category-btn.active{
+  color:#fff;
+  border-color:rgba(175,88,255,.6);
+  background:rgba(145,60,255,.15);
+}
+
+/* ================= CARDS ================= */
+
 .grid{
   max-width:1100px;
   margin:auto;
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
   gap:20px;
 }
 
 .card{
   position:relative;
-  padding:28px 20px;
-  min-height:190px;
+  padding:26px 20px;
+  min-height:205px;
   border-radius:20px;
   background:
     linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.018));
@@ -205,37 +427,46 @@ section{
     0 15px 40px rgba(0,0,0,.25);
   overflow:hidden;
   transition:.4s;
-  transform-style:preserve-3d;
 }
 
 .card::before{
   content:"";
   position:absolute;
-  width:120px;
-  height:120px;
+  width:130px;
+  height:130px;
   background:#8b3dff;
   filter:blur(70px);
   opacity:.12;
   right:-50px;
   top:-50px;
+  pointer-events:none;
 }
 
 .card:hover{
-  transform:translateY(-8px) rotateX(2deg) rotateY(-2deg);
+  transform:translateY(-8px);
   border-color:rgba(174,92,255,.55);
   box-shadow:
     0 20px 50px rgba(0,0,0,.4),
     0 0 30px rgba(130,44,255,.15);
 }
 
-.icon{
-  font-size:38px;
-  margin-bottom:15px;
-  filter:drop-shadow(0 0 12px rgba(170,86,255,.45));
+.product-logo{
+  width:65px;
+  height:65px;
+  border-radius:18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:32px;
+  margin-bottom:16px;
+  background:
+    linear-gradient(145deg,rgba(166,92,255,.28),rgba(255,255,255,.04));
+  border:1px solid rgba(183,103,255,.3);
+  box-shadow:0 0 25px rgba(137,50,255,.12);
 }
 
 .card h3{
-  font-size:19px;
+  font-size:18px;
   margin-bottom:8px;
 }
 
@@ -245,9 +476,14 @@ section{
   line-height:1.5;
 }
 
+.card-actions{
+  display:flex;
+  gap:8px;
+  margin-top:17px;
+}
+
 .card button{
-  margin-top:18px;
-  padding:10px 16px;
+  padding:10px 14px;
   border-radius:9px;
   border:1px solid rgba(177,94,255,.45);
   background:rgba(137,50,255,.13);
@@ -262,74 +498,336 @@ section{
   color:white;
 }
 
-/* SERVICIOS */
-.service{
+.favorite-btn{
+  width:40px;
+  padding:0 !important;
+  font-size:17px;
+}
+
+.favorite-btn.active{
+  color:#ff72c9;
+  border-color:rgba(255,114,201,.4);
+}
+
+/* ================= PRODUCT PAGE ================= */
+
+.product-page{
+  min-height:100vh;
+  padding-top:130px;
+}
+
+.back-btn{
+  max-width:1050px;
+  margin:0 auto 25px;
+}
+
+.back-btn button{
+  background:none;
+  border:0;
+  color:#aaa5b5;
+  cursor:pointer;
+  font-size:14px;
+}
+
+.product-header{
   max-width:1050px;
   margin:auto;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-  gap:20px;
-}
-
-/* MASTERCARD */
-.master-section{
-  max-width:1000px;
-  margin:auto;
-  display:flex;
-  justify-content:center;
-}
-
-.master-card{
-  width:min(500px,100%);
-  aspect-ratio:1.58;
-  padding:30px;
+  padding:40px;
   border-radius:25px;
-  position:relative;
-  overflow:hidden;
   background:
-    radial-gradient(circle at 80% 20%,rgba(168,78,255,.3),transparent 35%),
-    linear-gradient(135deg,#17131e,#08080c);
-  border:1px solid rgba(186,104,255,.45);
-  box-shadow:
-    0 25px 70px rgba(0,0,0,.5),
-    0 0 45px rgba(122,43,255,.14);
-  transform-style:preserve-3d;
-  transition:.5s;
+    radial-gradient(circle at 90% 10%,rgba(161,75,255,.2),transparent 35%),
+    linear-gradient(145deg,rgba(255,255,255,.065),rgba(255,255,255,.018));
+  border:1px solid rgba(255,255,255,.09);
+  display:flex;
+  align-items:center;
+  gap:30px;
 }
 
-.master-card:hover{
-  transform:perspective(900px) rotateY(-5deg) rotateX(4deg) translateY(-5px);
+.product-big-logo{
+  width:120px;
+  height:120px;
+  flex-shrink:0;
+  border-radius:30px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:60px;
+  background:linear-gradient(145deg,rgba(145,60,255,.28),rgba(255,255,255,.04));
+  border:1px solid rgba(179,100,255,.35);
+  box-shadow:0 0 45px rgba(132,44,255,.18);
 }
 
-.master-card .chip{
+.product-header h1{
+  font-size:38px;
+  margin-bottom:10px;
+}
+
+.product-header p{
+  color:#9c97a7;
+  line-height:1.6;
+}
+
+.product-products{
+  max-width:1050px;
+  margin:35px auto 0;
+}
+
+.product-item{
+  padding:20px;
+  border-radius:17px;
+  margin-bottom:12px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  background:rgba(255,255,255,.045);
+  border:1px solid rgba(255,255,255,.07);
+  transition:.3s;
+}
+
+.product-item:hover{
+  border-color:rgba(171,88,255,.4);
+  background:rgba(145,60,255,.07);
+}
+
+.product-item-info{
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+.product-item-icon{
   width:48px;
-  height:35px;
-  border-radius:7px;
-  background:linear-gradient(135deg,#b8b8b8,#555);
-  margin-top:20px;
+  height:48px;
+  border-radius:13px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(145,60,255,.14);
+  font-size:23px;
 }
 
-.master-card .mc{
-  position:absolute;
-  right:25px;
-  top:25px;
-  font-size:14px;
-  font-weight:bold;
-  letter-spacing:1px;
+.product-item h3{
+  font-size:15px;
+  margin-bottom:5px;
 }
 
-.master-card h3{
-  margin-top:45px;
+.product-item p{
+  color:#85808e;
+  font-size:12px;
+}
+
+.add-btn{
+  white-space:nowrap;
+}
+
+/* ================= CART ================= */
+
+.cart-page{
+  min-height:100vh;
+  padding-top:125px;
+}
+
+.cart-container{
+  max-width:900px;
+  margin:auto;
+}
+
+.cart-box{
+  border-radius:24px;
+  padding:25px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+}
+
+.cart-empty{
+  text-align:center;
+  padding:70px 20px;
+  color:#85808e;
+}
+
+.cart-empty-icon{
+  font-size:55px;
+  margin-bottom:15px;
+}
+
+.cart-item{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  padding:17px 0;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.cart-item:last-child{
+  border-bottom:0;
+}
+
+.cart-item-left{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.cart-item-icon{
+  width:48px;
+  height:48px;
+  border-radius:13px;
+  background:rgba(145,60,255,.13);
+  display:flex;
+  align-items:center;
+  justify-content:center;
   font-size:22px;
 }
 
-.master-card p{
-  margin-top:10px;
-  color:#aaa3b2;
-  font-size:13px;
+.cart-item h3{
+  font-size:14px;
+  margin-bottom:5px;
 }
 
-/* CONTACTO */
+.cart-item small{
+  color:#85808e;
+}
+
+.quantity{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.quantity button{
+  width:30px;
+  height:30px;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,.1);
+  background:rgba(255,255,255,.04);
+  color:white;
+  cursor:pointer;
+}
+
+.remove-btn{
+  border:0 !important;
+  background:rgba(255,60,100,.08) !important;
+  color:#ff7893 !important;
+}
+
+.whatsapp-choice{
+  margin-top:25px;
+  padding:20px;
+  border-radius:16px;
+  background:rgba(145,60,255,.07);
+  border:1px solid rgba(177,92,255,.16);
+}
+
+.whatsapp-choice h3{
+  margin-bottom:13px;
+  font-size:15px;
+}
+
+.phone-options{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.phone-option{
+  flex:1;
+  min-width:180px;
+  padding:13px;
+  border-radius:11px;
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.035);
+  color:#bbb5c5;
+  cursor:pointer;
+}
+
+.phone-option.selected{
+  border-color:#9b48ff;
+  background:rgba(145,60,255,.16);
+  color:white;
+}
+
+.cart-actions{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  margin-top:25px;
+  flex-wrap:wrap;
+}
+
+/* ================= NOTIFICATION ================= */
+
+.notification{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  width:min(370px,calc(100% - 40px));
+  z-index:5000;
+  padding:17px;
+  border-radius:17px;
+  background:rgba(17,13,25,.96);
+  border:1px solid rgba(173,91,255,.4);
+  box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 35px rgba(135,45,255,.14);
+  transform:translateY(130%);
+  transition:.4s;
+}
+
+.notification.show{
+  transform:translateY(0);
+}
+
+.notification-content{
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+}
+
+.notification-icon{
+  font-size:24px;
+}
+
+.notification h3{
+  font-size:14px;
+  margin-bottom:5px;
+}
+
+.notification p{
+  font-size:12px;
+  line-height:1.5;
+  color:#9892a3;
+}
+
+/* ================= TOAST ================= */
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:25px;
+  transform:translate(-50%,120px);
+  z-index:6000;
+  padding:13px 18px;
+  border-radius:12px;
+  background:#18131f;
+  border:1px solid rgba(177,92,255,.4);
+  box-shadow:0 15px 45px rgba(0,0,0,.4);
+  font-size:13px;
+  transition:.35s;
+}
+
+.toast.show{
+  transform:translate(-50%,0);
+}
+
+/* ================= FAVORITES ================= */
+
+.favorites-page{
+  min-height:100vh;
+  padding-top:125px;
+}
+
+/* ================= CONTACT ================= */
+
 .contact{
   text-align:center;
 }
@@ -353,7 +851,8 @@ section{
   line-height:1.6;
 }
 
-/* FOOTER */
+/* ================= FOOTER ================= */
+
 footer{
   text-align:center;
   padding:35px 20px;
@@ -366,17 +865,127 @@ footer strong{
   color:#a85cff;
 }
 
-/* ANIMACIONES */
-@keyframes entrada{
-  from{
-    opacity:0;
-    transform:translateY(30px);
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:850px){
+
+  .desktop-nav{
+    display:none;
   }
-  to{
-    opacity:1;
-    transform:translateY(0);
+
+  .menu-btn{
+    display:block;
+  }
+
+  .product-header{
+    flex-direction:column;
+    text-align:center;
+  }
+
+  .product-header h1{
+    font-size:30px;
   }
 }
+
+@media(max-width:600px){
+
+  header{
+    padding:13px 5%;
+  }
+
+  .logo{
+    font-size:17px;
+  }
+
+  .header-btn{
+    width:39px;
+    height:39px;
+  }
+
+  section{
+    padding:80px 5%;
+  }
+
+  .hero{
+    padding-top:125px;
+  }
+
+  .logo-hero{
+    font-size:clamp(36px,12vw,60px);
+    letter-spacing:3px;
+  }
+
+  .grid{
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+  }
+
+  .card{
+    min-height:205px;
+    padding:18px 13px;
+  }
+
+  .product-logo{
+    width:53px;
+    height:53px;
+    font-size:26px;
+  }
+
+  .card h3{
+    font-size:15px;
+  }
+
+  .card p{
+    font-size:11px;
+  }
+
+  .card-actions{
+    flex-direction:column;
+  }
+
+  .card button{
+    width:100%;
+  }
+
+  .favorite-btn{
+    width:100%;
+  }
+
+  .product-item{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .add-btn{
+    width:100%;
+  }
+
+  .cart-item{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .cart-item-left{
+    width:100%;
+  }
+
+  .quantity{
+    width:100%;
+  }
+
+  .quantity button{
+    flex:1;
+  }
+}
+
+@media(max-width:400px){
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+}
+
+/* ================= ANIMATIONS ================= */
 
 @keyframes brillo{
   0%,100%{
@@ -388,265 +997,135 @@ footer strong{
     filter:brightness(1.3);
   }
 }
-
-/* RESPONSIVE */
-@media(max-width:700px){
-  header{
-    padding:15px 5%;
-  }
-
-  nav{
-    display:none;
-  }
-
-  .hero{
-    padding-top:120px;
-  }
-
-  section{
-    padding:70px 5%;
-  }
-
-  .grid{
-    grid-template-columns:repeat(2,1fr);
-    gap:12px;
-  }
-
-  .card{
-    min-height:175px;
-    padding:20px 14px;
-  }
-
-  .card h3{
-    font-size:16px;
-  }
-
-  .icon{
-    font-size:30px;
-  }
-}
-
-@media(max-width:430px){
-  .grid{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .logo{
-    font-size:18px;
-  }
-}
 </style>
 </head>
 
 <body>
 
 <header>
-  <a href="#inicio" class="logo">RECARGAS <span>PLUS</span></a>
 
-  <nav>
-    <a href="#juegos">Juegos</a>
-    <a href="#servicios">Servicios</a>
-    <a href="#tarjeta">Tarjeta</a>
-    <a href="#contacto">Contacto</a>
+  <a href="#inicio" class="logo" onclick="navigate('inicio')">
+    RECARGAS <span>PLUS</span>
+  </a>
+
+  <nav class="desktop-nav">
+    <a href="#inicio" onclick="navigate('inicio')">Inicio</a>
+    <a href="#buscar" onclick="navigate('buscar')">Buscar</a>
+    <a href="#juegos" onclick="navigate('juegos')">Juegos</a>
+    <a href="#servicios" onclick="navigate('servicios')">Servicios</a>
+    <a href="#novedades" onclick="navigate('novedades')">Novedades</a>
   </nav>
+
+  <div class="header-actions">
+
+    <button class="header-btn" onclick="navigate('favoritos')" title="Favoritos">
+      ❤️
+    </button>
+
+    <button class="header-btn" onclick="navigate('carrito')" title="Carrito">
+      🛒
+      <span class="cart-count" id="cartCount">0</span>
+    </button>
+
+    <button class="header-btn menu-btn" onclick="openMenu()" title="Menú">
+      ☰
+    </button>
+
+  </div>
+
 </header>
 
+<div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
 
-<!-- INICIO -->
-<section class="hero" id="inicio">
+<div class="mobile-menu" id="mobileMenu">
+
+  <button class="close-menu" onclick="closeMenu()">✕</button>
+
+  <a href="#inicio" onclick="mobileNavigate('inicio')">🏠 Inicio</a>
+  <a href="#buscar" onclick="mobileNavigate('buscar')">🔎 Buscar servicios</a>
+  <a href="#juegos" onclick="mobileNavigate('juegos')">🎮 Juegos</a>
+  <a href="#servicios" onclick="mobileNavigate('servicios')">📺 Servicios digitales</a>
+  <a href="#novedades" onclick="mobileNavigate('novedades')">🆕 Novedades</a>
+  <a href="#favoritos" onclick="mobileNavigate('favoritos')">❤️ Favoritos</a>
+  <a href="#carrito" onclick="mobileNavigate('carrito')">🛒 Mi carrito</a>
+  <a href="#contacto" onclick="mobileNavigate('contacto')">💬 Contacto</a>
+
+</div>
+
+<main>
+
+<!-- ================= INICIO ================= -->
+
+<div class="view active" id="view-inicio">
+
+<section class="hero">
+
   <div class="hero-content">
 
     <div class="logo-hero">
       RECARGAS <span>PLUS</span>
     </div>
 
-    <h2>Gaming, entretenimiento y servicios digitales.</h2>
+    <h1>Gaming, entretenimiento y servicios digitales.</h1>
 
     <p>
-      Recargas y servicios digitales de forma rápida y sencilla.
-      Selecciona lo que necesitas y consulta tu precio por WhatsApp.
+      Encuentra tus juegos y servicios favoritos.
+      Añade varios productos al carrito y consulta
+      el precio y disponibilidad directamente por WhatsApp.
     </p>
 
     <div class="buttons">
-      <a class="btn" href="#juegos">🎮 Ver juegos</a>
-      <a class="btn secondary" href="#servicios">📺 Ver servicios</a>
-      <a class="btn secondary" href="#contacto">💬 Contactar</a>
+
+      <button class="btn" onclick="navigate('buscar')">
+        🔎 Buscar servicios
+      </button>
+
+      <button class="btn secondary" onclick="navigate('juegos')">
+        🎮 Ver juegos
+      </button>
+
+      <button class="btn secondary" onclick="navigate('servicios')">
+        📺 Servicios
+      </button>
+
     </div>
 
   </div>
+
 </section>
 
-
-<!-- JUEGOS -->
-<section id="juegos">
+<section>
 
   <div class="section-title">
-    <h2>🎮 Juegos</h2>
-    <p>Selecciona tu juego y consulta disponibilidad y precio.</p>
+    <h2>🔥 Más buscados</h2>
+    <p>Accede rápidamente a nuestros servicios.</p>
   </div>
 
-  <div class="grid">
+  <div class="grid" id="featuredGrid"></div>
 
-    <div class="card">
-      <div class="icon">🔥</div>
-      <h3>Free Fire</h3>
-      <p>Diamantes y servicios disponibles.</p>
-      <button onclick="consultar('Free Fire')">Consultar precio</button>
-    </div>
-
-    <div class="card">
-      <div class="icon">🧱</div>
-      <h3>Roblox</h3>
-      <p>Recargas y productos disponibles.</p>
-      <button onclick="consultar('Roblox')">Consultar precio</button>
-    </div>
-
-    <div class="card">
-      <div class="icon">🔫</div>
-      <h3>COD Mobile</h3>
-      <p>Recargas para Call of Duty Mobile.</p>
-      <button onclick="consultar('COD Mobile')">Consultar precio</button>
-    </div>
-
-    <div class="card">
-      <div class="icon">⚔️</div>
-      <h3>Warzone</h3>
-      <p>Consulta disponibilidad.</p>
-      <button onclick="consultar('Warzone')">Consultar precio</button>
-    </div>
-
-    <div class="card">
-      <div class="icon">🎯</div>
-      <h3>PUBG Mobile</h3>
-      <p>Recargas disponibles.</p>
-      <button onclick="consultar('PUBG Mobile')">Consultar precio</button>
-    </div>
-
-    <div class="card">
-      <div class="icon">💥</div>
-      <h3>Arena Breakout</h3>
-      <p>Consulta nuestros servicios.</p>
-      <button onclick="consultar('Arena Breakout')">Consultar precio</button>
-    </div>
-
-    <div class="card">
-      <div class="icon">⚡</div>
-      <h3>Delta Force</h3>
-      <p>Servicios y recargas.</p>
-      <button onclick="consultar('Delta Force')">Consultar precio</button>
-    </div>
-
-    <div class="card">
-      <div class="icon">🎮</div>
-      <h3>Blood Strike</h3>
-      <p>Consulta disponibilidad.</p>
-      <button onclick="consultar('Blood Strike')">Consultar precio</button>
-    </div>
-
-  </div>
 </section>
 
-
-<!-- SERVICIOS -->
-<section id="servicios">
-
-  <div class="section-title">
-    <h2>📺 Entretenimiento</h2>
-    <p>Servicios digitales disponibles bajo consulta.</p>
-  </div>
-
-  <div class="service">
-
-    <div class="card">
-      <div class="icon">🎬</div>
-      <h3>Netflix</h3>
-      <p>Consulta disponibilidad y opciones.</p>
-      <button onclick="consultar('Netflix')">Consultar precio</button>
-    </div>
-
-    <div class="card">
-      <div class="icon">✨</div>
-      <h3>Disney+</h3>
-      <p>Consulta disponibilidad.</p>
-      <button onclick="consultar('Disney+')">Consultar precio</button>
-    </div>
-
-    <div class="card">
-      <div class="icon">🎞️</div>
-      <h3>HBO Max</h3>
-      <p>Consulta disponibilidad.</p>
-      <button onclick="consultar('HBO Max')">Consultar precio</button>
-    </div>
-
-    <div class="card">
-      <div class="icon">＋</div>
-      <h3>Otros servicios</h3>
-      <p>Pregunta por otros servicios disponibles.</p>
-      <button onclick="consultar('Otros servicios')">Consultar precio</button>
-    </div>
-
-  </div>
-</section>
-
-
-<!-- TARJETA -->
-<section id="tarjeta">
-
-  <div class="section-title">
-    <h2>💳 Tarjeta Virtual</h2>
-    <p>Una opción independiente para tus pagos y recargas.</p>
-  </div>
-
-  <div class="master-section">
-
-    <div class="master-card">
-
-      <div class="mc">RECARGAS PLUS</div>
-
-      <div class="chip"></div>
-
-      <h3>Tarjeta Virtual</h3>
-
-      <p>
-        Consulta disponibilidad, condiciones y precio
-        antes de realizar tu solicitud.
-      </p>
-
-      <div class="buttons">
-        <a class="btn" href="https://wa.me/584242052486?text=Hola%20RECARGAS%20PLUS,%20quiero%20consultar%20sobre%20la%20tarjeta%20virtual.">
-          Consultar
-        </a>
-      </div>
-
-    </div>
-
-  </div>
-</section>
-
-
-<!-- CONTACTO -->
 <section id="contacto" class="contact">
 
   <div class="contact-box">
 
-    <h2>📲 ¿Qué necesitas?</h2>
+    <h2>📲 ¿Necesitas algo?</h2>
 
     <p>
-      Escríbenos para consultar disponibilidad,
-      precios o cualquier servicio.
+      Añade tus productos al carrito y consulta
+      precios y disponibilidad por WhatsApp.
     </p>
 
     <div class="buttons">
 
-      <a class="btn"
-      href="https://wa.me/584242052486?text=Hola%20RECARGAS%20PLUS,%20quiero%20consultar%20un%20servicio.">
-        💬 WhatsApp
-      </a>
+      <button class="btn" onclick="navigate('carrito')">
+        🛒 Ver carrito
+      </button>
 
       <a class="btn secondary"
-      href="https://www.tiktok.com/"
-      target="_blank">
-        🎵 TikTok · Recarga plus
+         href="https://wa.me/584242052486"
+         target="_blank">
+        💬 WhatsApp
       </a>
 
     </div>
@@ -655,23 +1134,1389 @@ footer strong{
 
 </section>
 
+</div>
+
+
+<!-- ================= BUSCAR ================= -->
+
+<div class="view" id="view-buscar">
+
+<section class="search-section">
+
+  <div class="section-title">
+
+    <h2>🔎 Buscar servicios</h2>
+
+    <p>
+      Busca un juego o servicio y entra directamente a su sección.
+    </p>
+
+  </div>
+
+  <div class="search-box">
+
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Ej: Free Fire, Roblox, Netflix..."
+      oninput="searchProducts()"
+    >
+
+    <span class="search-icon">🔎</span>
+
+  </div>
+
+  <div class="category-row">
+
+    <button class="category-btn active"
+      onclick="filterSearch('all',this)">
+      Todos
+    </button>
+
+    <button class="category-btn"
+      onclick="filterSearch('gaming',this)">
+      🎮 Juegos
+    </button>
+
+    <button class="category-btn"
+      onclick="filterSearch('streaming',this)">
+      📺 Streaming
+    </button>
+
+    <button class="category-btn"
+      onclick="filterSearch('other',this)">
+      💳 Otros
+    </button>
+
+  </div>
+
+  <div class="search-results grid" id="searchResults"></div>
+
+</section>
+
+</div>
+
+
+<!-- ================= JUEGOS ================= -->
+
+<div class="view" id="view-juegos">
+
+<section>
+
+  <div class="section-title">
+
+    <h2>🎮 Juegos</h2>
+
+    <p>
+      Selecciona un juego para entrar a su sección.
+    </p>
+
+  </div>
+
+  <div class="grid" id="gamesGrid"></div>
+
+</section>
+
+</div>
+
+
+<!-- ================= SERVICIOS ================= -->
+
+<div class="view" id="view-servicios">
+
+<section>
+
+  <div class="section-title">
+
+    <h2>📺 Servicios digitales</h2>
+
+    <p>
+      Selecciona un servicio para ver sus productos.
+    </p>
+
+  </div>
+
+  <div class="grid" id="servicesGrid"></div>
+
+</section>
+
+</div>
+
+
+<!-- ================= PRODUCTO INDIVIDUAL ================= -->
+
+<div class="view" id="view-product">
+
+<section class="product-page">
+
+  <div class="back-btn">
+
+    <button onclick="goBack()">
+      ← Volver
+    </button>
+
+  </div>
+
+  <div class="product-header">
+
+    <div class="product-big-logo" id="productBigLogo">
+      🎮
+    </div>
+
+    <div>
+
+      <h1 id="productTitle">
+        Producto
+      </h1>
+
+      <p id="productDescription">
+        Selecciona uno de nuestros productos.
+      </p>
+
+    </div>
+
+  </div>
+
+  <div class="product-products">
+
+    <h2 style="margin-bottom:20px;">
+      Productos disponibles
+    </h2>
+
+    <div id="productList"></div>
+
+  </div>
+
+</section>
+
+</div>
+
+
+<!-- ================= NOVEDADES ================= -->
+
+<div class="view" id="view-novedades">
+
+<section>
+
+  <div class="section-title">
+
+    <h2>🆕 Novedades</h2>
+
+    <p>
+      Descubre los productos que hemos añadido recientemente.
+    </p>
+
+  </div>
+
+  <div class="grid" id="newProductsGrid"></div>
+
+</section>
+
+</div>
+
+
+<!-- ================= FAVORITOS ================= -->
+
+<div class="view" id="view-favoritos">
+
+<section class="favorites-page">
+
+  <div class="section-title">
+
+    <h2>❤️ Favoritos</h2>
+
+    <p>
+      Guarda tus servicios favoritos para encontrarlos rápidamente.
+    </p>
+
+  </div>
+
+  <div class="grid" id="favoritesGrid"></div>
+
+</section>
+
+</div>
+
+
+<!-- ================= CARRITO ================= -->
+
+<div class="view" id="view-carrito">
+
+<section class="cart-page">
+
+  <div class="section-title">
+
+    <h2>🛒 Mi carrito</h2>
+
+    <p>
+      Revisa tus productos y consulta el precio por WhatsApp.
+    </p>
+
+  </div>
+
+  <div class="cart-container">
+
+    <div class="cart-box" id="cartBox"></div>
+
+  </div>
+
+</section>
+
+</div>
+
+</main>
+
+
+<!-- ================= NOTIFICACIÓN ================= -->
+
+<div class="notification" id="newNotification">
+
+  <div class="notification-content">
+
+    <div class="notification-icon">
+      🆕
+    </div>
+
+    <div>
+
+      <h3>¡Tenemos novedades!</h3>
+
+      <p id="notificationText">
+        Hemos añadido nuevos productos a RECARGAS PLUS.
+      </p>
+
+      <button
+        class="btn"
+        style="margin-top:10px;padding:9px 13px;font-size:12px;"
+        onclick="navigate('novedades');hideNotification()">
+        Ver novedades
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<div class="toast" id="toast"></div>
+
 
 <footer>
-  © 2026 <strong>RECARGAS PLUS</strong> · Gaming & Servicios Digitales
+
+  © 2026 <strong>RECARGAS PLUS</strong>
+  · Gaming & Servicios Digitales
+
 </footer>
 
 
 <script>
-function consultar(producto){
 
-  const mensaje =
-    "Hola RECARGAS PLUS 👋%0A%0A" +
-    "Quiero consultar el precio y disponibilidad de: " +
-    producto;
+/* =========================================================
+   CONFIGURACIÓN
+   ========================================================= */
 
-  window.location.href =
-    "https://wa.me/584242052486?text=" + mensaje;
+const WHATSAPP_NUMBERS = {
+  "04242052486":"584242052486",
+  "04127466566":"584127466566"
+};
+
+
+/* =========================================================
+   PRODUCTOS
+   Aquí podremos agregar precios después sin cambiar
+   la estructura del carrito.
+   ========================================================= */
+
+const PRODUCTS = [
+
+  {
+    id:"freefire",
+    name:"Free Fire",
+    icon:"🔥",
+    type:"gaming",
+    description:"Diamantes y servicios para Free Fire.",
+    popular:true,
+    newProduct:false,
+    items:[
+      {id:"ff100",name:"100 Diamantes",icon:"💎"},
+      {id:"ff310",name:"310 Diamantes",icon:"💎"},
+      {id:"ff520",name:"520 Diamantes",icon:"💎"},
+      {id:"ff1060",name:"1060 Diamantes",icon:"💎"}
+    ]
+  },
+
+  {
+    id:"roblox",
+    name:"Roblox",
+    icon:"🧱",
+    type:"gaming",
+    description:"Robux y productos disponibles para Roblox.",
+    popular:true,
+    newProduct:false,
+    items:[
+      {id:"rb400",name:"400 Robux",icon:"🪙"},
+      {id:"rb800",name:"800 Robux",icon:"🪙"},
+      {id:"rb1700",name:"1700 Robux",icon:"🪙"}
+    ]
+  },
+
+  {
+    id:"codmobile",
+    name:"COD Mobile",
+    icon:"🔫",
+    type:"gaming",
+    description:"Recargas para Call of Duty Mobile.",
+    popular:true,
+    newProduct:false,
+    items:[
+      {id:"cod80",name:"80 CP",icon:"🎯"},
+      {id:"cod420",name:"420 CP",icon:"🎯"},
+      {id:"cod880",name:"880 CP",icon:"🎯"}
+    ]
+  },
+
+  {
+    id:"warzone",
+    name:"Warzone",
+    icon:"⚔️",
+    type:"gaming",
+    description:"Servicios y productos para Warzone.",
+    popular:false,
+    newProduct:false,
+    items:[
+      {id:"wz1100",name:"1100 CP",icon:"🎯"},
+      {id:"wz2400",name:"2400 CP",icon:"🎯"}
+    ]
+  },
+
+  {
+    id:"pubg",
+    name:"PUBG Mobile",
+    icon:"🎯",
+    type:"gaming",
+    description:"Recargas disponibles para PUBG Mobile.",
+    popular:true,
+    newProduct:false,
+    items:[
+      {id:"pubg60",name:"60 UC",icon:"🪙"},
+      {id:"pubg325",name:"325 UC",icon:"🪙"},
+      {id:"pubg660",name:"660 UC",icon:"🪙"}
+    ]
+  },
+
+  {
+    id:"arena",
+    name:"Arena Breakout",
+    icon:"💥",
+    type:"gaming",
+    description:"Servicios y recargas para Arena Breakout.",
+    popular:false,
+    newProduct:true,
+    items:[
+      {id:"arena",name:"Recarga Arena Breakout",icon:"💥"}
+    ]
+  },
+
+  {
+    id:"delta",
+    name:"Delta Force",
+    icon:"⚡",
+    type:"gaming",
+    description:"Servicios y recargas para Delta Force.",
+    popular:false,
+    newProduct:true,
+    items:[
+      {id:"delta",name:"Recarga Delta Force",icon:"⚡"}
+    ]
+  },
+
+  {
+    id:"bloodstrike",
+    name:"Blood Strike",
+    icon:"🎮",
+    type:"gaming",
+    description:"Servicios y recargas para Blood Strike.",
+    popular:false,
+    newProduct:true,
+    items:[
+      {id:"blood",name:"Recarga Blood Strike",icon:"🎮"}
+    ]
+  },
+
+  {
+    id:"netflix",
+    name:"Netflix",
+    icon:"🎬",
+    type:"streaming",
+    description:"Consulta opciones y disponibilidad de Netflix.",
+    popular:true,
+    newProduct:false,
+    items:[
+      {id:"netflix1",name:"Netflix — 1 mes",icon:"🎬"},
+      {id:"netflix3",name:"Netflix — 3 meses",icon:"🎬"}
+    ]
+  },
+
+  {
+    id:"disney",
+    name:"Disney+",
+    icon:"✨",
+    type:"streaming",
+    description:"Consulta disponibilidad de Disney+.",
+    popular:false,
+    newProduct:false,
+    items:[
+      {id:"disney1",name:"Disney+ — 1 mes",icon:"✨"}
+    ]
+  },
+
+  {
+    id:"hbomax",
+    name:"HBO Max",
+    icon:"🎞️",
+    type:"streaming",
+    description:"Consulta disponibilidad de HBO Max.",
+    popular:false,
+    newProduct:false,
+    items:[
+      {id:"hbo1",name:"HBO Max — 1 mes",icon:"🎞️"}
+    ]
+  },
+
+  {
+    id:"tarjeta",
+    name:"Tarjeta Virtual",
+    icon:"💳",
+    type:"other",
+    description:"Consulta disponibilidad, condiciones y precio.",
+    popular:true,
+    newProduct:false,
+    items:[
+      {id:"virtualcard",name:"Tarjeta Virtual",icon:"💳"}
+    ]
+  }
+
+];
+
+
+/* =========================================================
+   ESTADO
+   ========================================================= */
+
+let cart = JSON.parse(localStorage.getItem("rp_cart") || "[]");
+
+let favorites = JSON.parse(
+  localStorage.getItem("rp_favorites") || "[]"
+);
+
+let selectedPhone = "04242052486";
+
+let previousView = "inicio";
+
+let currentSearchCategory = "all";
+
+
+/* =========================================================
+   NAVEGACIÓN
+   ========================================================= */
+
+function navigate(view){
+
+  document.querySelectorAll(".view").forEach(v=>{
+    v.classList.remove("active");
+  });
+
+  const target = document.getElementById("view-" + view);
+
+  if(!target){
+    view = "inicio";
+  }
+
+  document.getElementById("view-" + view).classList.add("active");
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+  if(view === "buscar"){
+    renderSearch();
+  }
+
+  if(view === "juegos"){
+    renderGames();
+  }
+
+  if(view === "servicios"){
+    renderServices();
+  }
+
+  if(view === "novedades"){
+    renderNewProducts();
+  }
+
+  if(view === "favoritos"){
+    renderFavorites();
+  }
+
+  if(view === "carrito"){
+    renderCart();
+  }
+
+  updateCartCount();
 }
+
+function mobileNavigate(view){
+  closeMenu();
+  navigate(view);
+}
+
+function goBack(){
+  navigate(previousView || "inicio");
+}
+
+
+/* =========================================================
+   MENÚ
+   ========================================================= */
+
+function openMenu(){
+
+  document.getElementById("mobileMenu")
+    .classList.add("active");
+
+  document.getElementById("menuOverlay")
+    .classList.add("active");
+}
+
+function closeMenu(){
+
+  document.getElementById("mobileMenu")
+    .classList.remove("active");
+
+  document.getElementById("menuOverlay")
+    .classList.remove("active");
+}
+
+
+/* =========================================================
+   CREAR TARJETAS
+   ========================================================= */
+
+function createServiceCard(product){
+
+  const isFavorite = favorites.includes(product.id);
+
+  return `
+    <div class="card">
+
+      <div class="product-logo">
+        ${product.icon}
+      </div>
+
+      <h3>${product.name}</h3>
+
+      <p>
+        ${product.description}
+      </p>
+
+      <div class="card-actions">
+
+        <button onclick="openProduct('${product.id}')">
+          Ver productos
+        </button>
+
+        <button
+          class="favorite-btn ${isFavorite ? "active" : ""}"
+          onclick="toggleFavorite('${product.id}')"
+          title="Favorito">
+          ${isFavorite ? "♥" : "♡"}
+        </button>
+
+      </div>
+
+    </div>
+  `;
+}
+
+
+/* =========================================================
+   JUEGOS
+   ========================================================= */
+
+function renderGames(){
+
+  const gaming = PRODUCTS.filter(
+    p => p.type === "gaming"
+  );
+
+  document.getElementById("gamesGrid").innerHTML =
+    gaming.map(createServiceCard).join("");
+}
+
+
+/* =========================================================
+   SERVICIOS
+   ========================================================= */
+
+function renderServices(){
+
+  const services = PRODUCTS.filter(
+    p => p.type === "streaming" || p.type === "other"
+  );
+
+  document.getElementById("servicesGrid").innerHTML =
+    services.map(createServiceCard).join("");
+}
+
+
+/* =========================================================
+   DESTACADOS
+   ========================================================= */
+
+function renderFeatured(){
+
+  const featured = PRODUCTS
+    .filter(p => p.popular)
+    .slice(0,6);
+
+  document.getElementById("featuredGrid").innerHTML =
+    featured.map(createServiceCard).join("");
+}
+
+
+/* =========================================================
+   ABRIR SERVICIO INDIVIDUAL
+   ========================================================= */
+
+function openProduct(id){
+
+  const product = PRODUCTS.find(
+    p => p.id === id
+  );
+
+  if(!product) return;
+
+  previousView =
+    product.type === "gaming"
+      ? "juegos"
+      : "servicios";
+
+  document.getElementById("productBigLogo").textContent =
+    product.icon;
+
+  document.getElementById("productTitle").textContent =
+    product.name;
+
+  document.getElementById("productDescription").textContent =
+    product.description;
+
+  document.getElementById("productList").innerHTML =
+    product.items.map(item => `
+
+      <div class="product-item">
+
+        <div class="product-item-info">
+
+          <div class="product-item-icon">
+            ${item.icon}
+          </div>
+
+          <div>
+
+            <h3>${item.name}</h3>
+
+            <p>
+              Precio y disponibilidad por WhatsApp
+            </p>
+
+          </div>
+
+        </div>
+
+        <button
+          class="btn add-btn"
+          onclick="addToCart('${product.id}','${item.id}')">
+
+          🛒 Añadir
+
+        </button>
+
+      </div>
+
+    `).join("");
+
+  navigate("product");
+}
+
+
+/* =========================================================
+   CARRITO
+   ========================================================= */
+
+function addToCart(productId,itemId){
+
+  const product = PRODUCTS.find(
+    p => p.id === productId
+  );
+
+  if(!product) return;
+
+  const item = product.items.find(
+    i => i.id === itemId
+  );
+
+  if(!item) return;
+
+  const existing = cart.find(
+    c => c.itemId === itemId
+  );
+
+  if(existing){
+
+    existing.quantity++;
+
+  }else{
+
+    cart.push({
+      productId:product.id,
+      productName:product.name,
+      productIcon:product.icon,
+      itemId:item.id,
+      itemName:item.name,
+      itemIcon:item.icon,
+      quantity:1
+    });
+
+  }
+
+  saveCart();
+
+  showToast("🛒 Añadido al carrito");
+
+  updateCartCount();
+}
+
+
+function changeQuantity(itemId,amount){
+
+  const item = cart.find(
+    c => c.itemId === itemId
+  );
+
+  if(!item) return;
+
+  item.quantity += amount;
+
+  if(item.quantity <= 0){
+
+    cart = cart.filter(
+      c => c.itemId !== itemId
+    );
+
+  }
+
+  saveCart();
+
+  renderCart();
+
+  updateCartCount();
+}
+
+
+function removeFromCart(itemId){
+
+  cart = cart.filter(
+    c => c.itemId !== itemId
+  );
+
+  saveCart();
+
+  renderCart();
+
+  updateCartCount();
+
+  showToast("Producto eliminado");
+}
+
+
+function clearCart(){
+
+  if(!cart.length) return;
+
+  cart = [];
+
+  saveCart();
+
+  renderCart();
+
+  updateCartCount();
+
+  showToast("Carrito vacío");
+}
+
+
+function saveCart(){
+
+  localStorage.setItem(
+    "rp_cart",
+    JSON.stringify(cart)
+  );
+}
+
+
+function updateCartCount(){
+
+  const total = cart.reduce(
+    (sum,item) => sum + item.quantity,
+    0
+  );
+
+  document.getElementById("cartCount").textContent =
+    total;
+}
+
+
+/* =========================================================
+   RENDER CARRITO
+   ========================================================= */
+
+function renderCart(){
+
+  const box = document.getElementById("cartBox");
+
+  if(!cart.length){
+
+    box.innerHTML = `
+
+      <div class="cart-empty">
+
+        <div class="cart-empty-icon">
+          🛒
+        </div>
+
+        <h3>Tu carrito está vacío</h3>
+
+        <p style="margin-top:8px;">
+          Añade juegos o servicios para preparar
+          tu consulta por WhatsApp.
+        </p>
+
+        <button
+          class="btn"
+          style="margin-top:22px;"
+          onclick="navigate('buscar')">
+
+          🔎 Buscar servicios
+
+        </button>
+
+      </div>
+
+    `;
+
+    return;
+  }
+
+  let html = "";
+
+  cart.forEach(item => {
+
+    html += `
+
+      <div class="cart-item">
+
+        <div class="cart-item-left">
+
+          <div class="cart-item-icon">
+            ${item.itemIcon || item.productIcon}
+          </div>
+
+          <div>
+
+            <h3>
+              ${item.itemName}
+            </h3>
+
+            <small>
+              ${item.productName}
+            </small>
+
+          </div>
+
+        </div>
+
+        <div class="quantity">
+
+          <button
+            onclick="changeQuantity('${item.itemId}',-1)">
+            −
+          </button>
+
+          <span>${item.quantity}</span>
+
+          <button
+            onclick="changeQuantity('${item.itemId}',1)">
+            +
+          </button>
+
+          <button
+            class="remove-btn"
+            onclick="removeFromCart('${item.itemId}')">
+            🗑️
+          </button>
+
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
+
+  html += `
+
+    <div class="whatsapp-choice">
+
+      <h3>
+        📱 ¿A qué número quieres enviar el pedido?
+      </h3>
+
+      <div class="phone-options">
+
+        <button
+          class="phone-option selected"
+          id="phone1"
+          onclick="selectPhone('04242052486')">
+
+          📱 0424 205 2486
+
+        </button>
+
+        <button
+          class="phone-option"
+          id="phone2"
+          onclick="selectPhone('04127466566')">
+
+          📱 0412 746 6566
+
+        </button>
+
+      </div>
+
+    </div>
+
+    <div class="cart-actions">
+
+      <button
+        class="btn secondary"
+        onclick="clearCart()">
+
+        🗑️ Vaciar carrito
+
+      </button>
+
+      <button
+        class="btn"
+        onclick="sendCartWhatsApp()">
+
+        💬 Consultar pedido
+
+      </button>
+
+    </div>
+
+  `;
+
+  box.innerHTML = html;
+
+}
+
+
+/* =========================================================
+   WHATSAPP
+   ========================================================= */
+
+function selectPhone(phone){
+
+  selectedPhone = phone;
+
+  document
+    .getElementById("phone1")
+    .classList.toggle(
+      "selected",
+      phone === "04242052486"
+    );
+
+  document
+    .getElementById("phone2")
+    .classList.toggle(
+      "selected",
+      phone === "04127466566"
+    );
+}
+
+
+function sendCartWhatsApp(){
+
+  if(!cart.length){
+
+    showToast("El carrito está vacío");
+
+    return;
+  }
+
+  let message =
+    "Hola RECARGAS PLUS 👋\n\n" +
+    "Quiero consultar precio y disponibilidad de:\n\n";
+
+  cart.forEach(item => {
+
+    message +=
+      "• " +
+      item.productName +
+      " — " +
+      item.itemName +
+      " x" +
+      item.quantity +
+      "\n";
+
+  });
+
+  message +=
+    "\n¿Me pueden indicar el precio y disponibilidad?";
+
+  const encoded =
+    encodeURIComponent(message);
+
+  const number =
+    WHATSAPP_NUMBERS[selectedPhone];
+
+  window.open(
+    "https://wa.me/" +
+    number +
+    "?text=" +
+    encoded,
+    "_blank"
+  );
+}
+
+
+/* =========================================================
+   BUSCADOR
+   ========================================================= */
+
+function searchProducts(){
+
+  renderSearch();
+
+}
+
+
+function filterSearch(category,button){
+
+  currentSearchCategory = category;
+
+  document
+    .querySelectorAll(".category-btn")
+    .forEach(btn=>{
+      btn.classList.remove("active");
+    });
+
+  button.classList.add("active");
+
+  renderSearch();
+}
+
+
+function renderSearch(){
+
+  const container =
+    document.getElementById("searchResults");
+
+  if(!container) return;
+
+  const input =
+    document.getElementById("searchInput");
+
+  const text =
+    input
+      ? input.value.toLowerCase().trim()
+      : "";
+
+  let results = PRODUCTS.filter(product => {
+
+    const matchesText =
+      product.name
+        .toLowerCase()
+        .includes(text);
+
+    const matchesCategory =
+      currentSearchCategory === "all" ||
+      product.type === currentSearchCategory;
+
+    return matchesText && matchesCategory;
+
+  });
+
+  if(!results.length){
+
+    container.innerHTML = `
+
+      <div style="
+        grid-column:1/-1;
+        text-align:center;
+        padding:60px 20px;
+        color:#85808e;
+      ">
+
+        <div style="font-size:45px;">
+          🔎
+        </div>
+
+        <h3 style="margin-top:15px;">
+          No encontramos ese servicio
+        </h3>
+
+        <p style="margin-top:8px;">
+          Prueba con otro nombre.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+  }
+
+  container.innerHTML =
+    results.map(createServiceCard).join("");
+}
+
+
+/* =========================================================
+   FAVORITOS
+   ========================================================= */
+
+function toggleFavorite(id){
+
+  if(favorites.includes(id)){
+
+    favorites =
+      favorites.filter(
+        item => item !== id
+      );
+
+    showToast("♡ Eliminado de favoritos");
+
+  }else{
+
+    favorites.push(id);
+
+    showToast("❤️ Añadido a favoritos");
+
+  }
+
+  localStorage.setItem(
+    "rp_favorites",
+    JSON.stringify(favorites)
+  );
+
+  renderFeatured();
+  renderGames();
+  renderServices();
+  renderSearch();
+  renderFavorites();
+}
+
+
+function renderFavorites(){
+
+  const container =
+    document.getElementById("favoritesGrid");
+
+  if(!container) return;
+
+  const favs = PRODUCTS.filter(
+    p => favorites.includes(p.id)
+  );
+
+  if(!favs.length){
+
+    container.innerHTML = `
+
+      <div style="
+        grid-column:1/-1;
+        text-align:center;
+        padding:60px 20px;
+        color:#85808e;
+      ">
+
+        <div style="font-size:50px;">
+          ❤️
+        </div>
+
+        <h3 style="margin-top:15px;">
+          Todavía no tienes favoritos
+        </h3>
+
+        <p style="margin-top:8px;">
+          Pulsa el corazón de un servicio para guardarlo.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+  }
+
+  container.innerHTML =
+    favs.map(createServiceCard).join("");
+}
+
+
+/* =========================================================
+   NOVEDADES
+   ========================================================= */
+
+function renderNewProducts(){
+
+  const container =
+    document.getElementById("newProductsGrid");
+
+  const newProducts =
+    PRODUCTS.filter(
+      p => p.newProduct
+    );
+
+  if(!newProducts.length){
+
+    container.innerHTML = `
+
+      <div style="
+        grid-column:1/-1;
+        text-align:center;
+        padding:60px;
+        color:#85808e;
+      ">
+
+        No hay novedades todavía.
+
+      </div>
+
+    `;
+
+    return;
+  }
+
+  container.innerHTML =
+    newProducts.map(createServiceCard).join("");
+}
+
+
+/* =========================================================
+   NOTIFICACIÓN DE NOVEDADES
+   ========================================================= */
+
+function showNewProductNotification(){
+
+  const newProducts =
+    PRODUCTS.filter(
+      p => p.newProduct
+    );
+
+  if(!newProducts.length) return;
+
+  const notification =
+    document.getElementById("newNotification");
+
+  const names =
+    newProducts
+      .slice(0,3)
+      .map(p=>p.name)
+      .join(", ");
+
+  document.getElementById("notificationText").textContent =
+    "Nuevos servicios disponibles: " + names;
+
+  setTimeout(()=>{
+
+    notification.classList.add("show");
+
+  },1800);
+
+}
+
+
+function hideNotification(){
+
+  document
+    .getElementById("newNotification")
+    .classList.remove("show");
+}
+
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+
+let toastTimer;
+
+function showToast(message){
+
+  const toast =
+    document.getElementById("toast");
+
+  toast.textContent = message;
+
+  toast.classList.add("show");
+
+  clearTimeout(toastTimer);
+
+  toastTimer = setTimeout(()=>{
+
+    toast.classList.remove("show");
+
+  },2200);
+}
+
+
+/* =========================================================
+   INICIO
+   ========================================================= */
+
+renderFeatured();
+renderGames();
+renderServices();
+renderSearch();
+renderFavorites();
+renderNewProducts();
+updateCartCount();
+
+setTimeout(
+  showNewProductNotification,
+  1500
+);
+
+
+/* =========================================================
+   CERRAR MENÚ CON ESC
+   ========================================================= */
+
+document.addEventListener(
+  "keydown",
+  function(e){
+
+    if(e.key === "Escape"){
+      closeMenu();
+    }
+
+  }
+);
+
 </script>
 
 </body>
