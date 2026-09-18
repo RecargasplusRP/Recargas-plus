@@ -14,21 +14,12 @@
 <meta name="theme-color" content="#070a10">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 
-<!--
-  IMPORTANTE:
-  Las cabeceras HTTP reales de seguridad deben configurarse
-  también en el servidor/hosting.
--->
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 
 <meta http-equiv="Permissions-Policy"
       content="camera=(), microphone=(), geolocation=()">
 
 <style>
-/* =========================================================
-   RECARGAS PLUS
-   ESTILOS GENERALES
-========================================================= */
 
 *{
     margin:0;
@@ -650,6 +641,172 @@ a{
 }
 
 /* =========================================================
+   TASA USDT / VES
+========================================================= */
+
+.rate-widget{
+    position:fixed;
+
+    right:18px;
+    bottom:18px;
+
+    z-index:1800;
+
+    width:min(320px,calc(100vw - 36px));
+
+    border:1px solid
+        rgba(0,229,255,.24);
+
+    border-radius:18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(11,18,28,.96),
+            rgba(8,12,19,.96)
+        );
+
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.45),
+        0 0 35px rgba(0,229,255,.08);
+
+    overflow:hidden;
+
+    user-select:none;
+
+    touch-action:none;
+}
+
+.rate-widget.dragging{
+    cursor:grabbing;
+}
+
+.rate-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    gap:10px;
+
+    padding:11px 13px;
+
+    cursor:grab;
+
+    background:
+        rgba(0,229,255,.045);
+
+    border-bottom:1px solid var(--border);
+}
+
+.rate-head-left{
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    font-size:12px;
+    font-weight:950;
+}
+
+.rate-dot{
+    width:8px;
+    height:8px;
+
+    border-radius:50%;
+
+    background:var(--success);
+
+    box-shadow:
+        0 0 12px rgba(37,211,102,.7);
+}
+
+.rate-drag{
+    color:#738095;
+    font-size:11px;
+}
+
+.rate-main{
+    padding:16px;
+}
+
+.rate-label{
+    color:var(--muted);
+
+    font-size:11px;
+
+    text-transform:uppercase;
+
+    letter-spacing:1px;
+
+    font-weight:900;
+}
+
+.rate-value{
+    margin-top:5px;
+
+    font-size:27px;
+
+    font-weight:950;
+
+    color:#fff;
+
+    text-shadow:
+        0 0 20px rgba(0,229,255,.12);
+}
+
+.rate-value span{
+    color:var(--primary);
+}
+
+.rate-info{
+    margin-top:8px;
+
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+
+    color:#8290a3;
+
+    font-size:10px;
+}
+
+.rate-source{
+    color:#9aa8ba;
+
+    font-size:10px;
+
+    margin-top:10px;
+
+    line-height:1.4;
+}
+
+.rate-refresh{
+    border:0;
+
+    padding:7px 10px;
+
+    border-radius:9px;
+
+    background:
+        rgba(255,255,255,.055);
+
+    color:#fff;
+
+    font-size:10px;
+
+    font-weight:900;
+
+    cursor:pointer;
+}
+
+.rate-refresh:hover{
+    background:
+        rgba(0,229,255,.09);
+}
+
+/* =========================================================
    SEARCH
 ========================================================= */
 
@@ -876,12 +1033,16 @@ a{
 }
 
 .product-top{
-    height:145px;
+    min-height:125px;
 
     display:grid;
     place-items:center;
 
-    font-size:55px;
+    padding:15px;
+
+    font-size:50px;
+
+    text-align:center;
 
     background:
         radial-gradient(
@@ -943,6 +1104,11 @@ a{
     font-weight:950;
 }
 
+.price.consult{
+    color:var(--warning);
+    font-size:15px;
+}
+
 .add{
     width:40px;
     height:40px;
@@ -973,8 +1139,36 @@ a{
         rgba(0,229,255,.2);
 }
 
+.query-btn{
+    width:100%;
+
+    border:1px solid
+        rgba(0,229,255,.2);
+
+    background:
+        rgba(0,229,255,.055);
+
+    color:#fff;
+
+    border-radius:11px;
+
+    padding:11px;
+
+    font-weight:900;
+
+    transition:.2s;
+}
+
+.query-btn:hover{
+    background:
+        rgba(0,229,255,.1);
+
+    border-color:
+        rgba(0,229,255,.45);
+}
+
 /* =========================================================
-   EMPTY RESULTS
+   EMPTY
 ========================================================= */
 
 .empty{
@@ -1359,10 +1553,6 @@ a{
     width:100%;
 }
 
-/* =========================================================
-   CHECKOUT SELECTOR
-========================================================= */
-
 .checkout-box{
     margin-top:15px;
 
@@ -1551,6 +1741,14 @@ footer{
         align-items:flex-start;
         flex-direction:column;
     }
+
+    .rate-widget{
+        right:10px;
+        bottom:10px;
+
+        width:
+            min(300px,calc(100vw - 20px));
+    }
 }
 
 @media(max-width:480px){
@@ -1611,7 +1809,6 @@ select:focus-visible{
     outline-offset:2px;
 }
 
-/* Reduce motion */
 @media(prefers-reduced-motion:reduce){
 
     *,
@@ -1623,6 +1820,7 @@ select:focus-visible{
         transition-duration:.01ms !important;
     }
 }
+
 </style>
 </head>
 
@@ -1677,6 +1875,13 @@ select:focus-visible{
                 onclick="filterProducts('servicios')"
             >
                 Servicios
+            </button>
+
+            <button
+                type="button"
+                onclick="filterProducts('giftcards')"
+            >
+                Gift Cards
             </button>
 
             <button
@@ -1853,6 +2058,76 @@ select:focus-visible{
     </div>
 
 </section>
+
+
+<!-- =======================================================
+     TASA USDT
+======================================================= -->
+
+<div
+    class="rate-widget"
+    id="rateWidget"
+    aria-label="Tasa USDT en bolívares"
+>
+
+    <div
+        class="rate-head"
+        id="rateDragHandle"
+    >
+
+        <div class="rate-head-left">
+
+            <span class="rate-dot"></span>
+
+            <span>
+                TASA USDT / VES
+            </span>
+
+        </div>
+
+        <span class="rate-drag">
+            ↕ Mover
+        </span>
+
+    </div>
+
+
+    <div class="rate-main">
+
+        <div class="rate-label">
+            1 USDT equivale aproximadamente a
+        </div>
+
+        <div
+            class="rate-value"
+            id="usdtRate"
+        >
+            Consultando...
+        </div>
+
+        <div class="rate-info">
+
+            <span id="rateUpdated">
+                Actualizando...
+            </span>
+
+            <button
+                class="rate-refresh"
+                type="button"
+                id="rateRefresh"
+            >
+                ↻ Actualizar
+            </button>
+
+        </div>
+
+        <div class="rate-source">
+            Referencia USDT/VES. La tasa se actualiza automáticamente.
+        </div>
+
+    </div>
+
+</div>
 
 
 <!-- =======================================================
@@ -2056,8 +2331,6 @@ select:focus-visible{
         <div class="support-grid">
 
 
-            <!-- SOPORTE PRINCIPAL -->
-
             <div class="support-card">
 
                 <div>
@@ -2087,8 +2360,6 @@ select:focus-visible{
 
             </div>
 
-
-            <!-- SOPORTE SECUNDARIO -->
 
             <div class="support-card">
 
@@ -2224,8 +2495,6 @@ select:focus-visible{
         </div>
 
 
-        <!-- CLIENTE ESCOGE EL SOPORTE -->
-
         <div class="checkout-box">
 
             <label for="supportNumber">
@@ -2246,8 +2515,7 @@ select:focus-visible{
 
             <div class="checkout-note">
                 El cliente puede elegir a cuál número
-                enviar el pedido. El número principal
-                aparece seleccionado automáticamente.
+                enviar el pedido.
             </div>
 
         </div>
@@ -2283,27 +2551,6 @@ select:focus-visible{
 "use strict";
 
 /* =========================================================
-   RECARGAS PLUS
-   JAVASCRIPT
-=========================================================
-
-   Seguridad:
-   - No se almacenan tarjetas.
-   - No se almacenan contraseñas.
-   - No se utiliza eval().
-   - No se usa innerHTML con información introducida
-     por el usuario.
-   - Los nombres de productos se muestran mediante
-     textContent.
-   - localStorage solamente contiene IDs/cantidades
-     del carrito.
-   - Se validan IDs y cantidades antes de utilizarlos.
-   - Se limita la búsqueda.
-   - WhatsApp recibe solamente el resumen del pedido.
-========================================================= */
-
-
-/* =========================================================
    CONFIGURACIÓN
 ========================================================= */
 
@@ -2316,106 +2563,959 @@ const SUPPORT_NUMBERS = Object.freeze({
 });
 
 
+/*
+   API pública USDT/VES.
+
+   La fuente entrega referencias de Binance y Bybit.
+   Se toma primero la mejor referencia disponible.
+
+   La API permite CORS y no requiere API key.
+*/
+
+const USDT_API =
+    "https://www.usdt.com.ve/api/v1/rates/current";
+
+
+const RATE_REFRESH_MS =
+    5 * 60 * 1000;
+
+
+/* =========================================================
+   PRODUCTOS
+=========================================================
+
+   price:null significa:
+   "Consultar precio".
+
+   Los productos con precio definido
+   conservan el precio indicado por el usuario.
+========================================================= */
+
 const PRODUCTS = Object.freeze([
 
+    /* =====================================================
+       FREE FIRE
+    ===================================================== */
+
     {
-        id: "ff",
-        name: "Free Fire",
-        category: "juegos",
-        type: "Gaming",
-        icon: "🔥",
-        description: "Recargas para Free Fire.",
-        price: 5
+        id:"ff-110",
+        name:"Free Fire — 110💎",
+        category:"juegos",
+        type:"Free Fire",
+        icon:"🔥",
+        description:"Recarga de 110 diamantes.",
+        price:null
     },
 
     {
-        id: "mlbb",
-        name: "Mobile Legends",
-        category: "juegos",
-        type: "Gaming",
-        icon: "⚔️",
-        description: "Recargas para Mobile Legends.",
-        price: 5
+        id:"ff-220",
+        name:"Free Fire — 220💎",
+        category:"juegos",
+        type:"Free Fire",
+        icon:"🔥",
+        description:"Recarga de 220 diamantes.",
+        price:null
     },
 
     {
-        id: "roblox",
-        name: "Roblox",
-        category: "juegos",
-        type: "Gaming",
-        icon: "🟥",
-        description: "Robux y productos digitales.",
-        price: 10
+        id:"ff-341",
+        name:"Free Fire — 341💎",
+        category:"juegos",
+        type:"Free Fire",
+        icon:"🔥",
+        description:"Recarga de 341 diamantes.",
+        price:null
     },
 
     {
-        id: "pubg",
-        name: "PUBG Mobile",
-        category: "juegos",
-        type: "Gaming",
-        icon: "🎯",
-        description: "Recargas para PUBG Mobile.",
-        price: 5
+        id:"ff-572",
+        name:"Free Fire — 572💎",
+        category:"juegos",
+        type:"Free Fire",
+        icon:"🔥",
+        description:"Recarga de 572 diamantes.",
+        price:null
     },
 
     {
-        id: "tiktok",
-        name: "Monedas TikTok",
-        category: "servicios",
-        type: "Digital",
-        icon: "🎵",
-        description: "Monedas para TikTok.",
-        price: 5
+        id:"ff-1166",
+        name:"Free Fire — 1.166💎",
+        category:"juegos",
+        type:"Free Fire",
+        icon:"🔥",
+        description:"Recarga de 1.166 diamantes.",
+        price:null
     },
 
     {
-        id: "netflix",
-        name: "Streaming",
-        category: "servicios",
-        type: "Digital",
-        icon: "📺",
-        description: "Servicios de entretenimiento digital.",
-        price: 10
+        id:"ff-2398",
+        name:"Free Fire — 2.398💎",
+        category:"juegos",
+        type:"Free Fire",
+        icon:"🔥",
+        description:"Recarga de 2.398 diamantes.",
+        price:null
     },
 
     {
-        id: "esim",
-        name: "eSIM",
-        category: "servicios",
-        type: "Digital",
-        icon: "📱",
-        description: "Servicios eSIM digitales.",
-        price: 10
+        id:"ff-6160",
+        name:"Free Fire — 6.160💎",
+        category:"juegos",
+        type:"Free Fire",
+        icon:"🔥",
+        description:"Recarga de 6.160 diamantes.",
+        price:null
     },
 
     {
-        id: "google",
-        name: "Google Play Gift Card",
-        category: "giftcards",
-        type: "Gift Card",
-        icon: "🎁",
-        description: "Tarjetas digitales Google Play.",
-        price: 10
+        id:"ff-12320",
+        name:"Free Fire — 12.320💎",
+        category:"juegos",
+        type:"Free Fire",
+        icon:"🔥",
+        description:"Recarga de 12.320 diamantes.",
+        price:null
     },
 
     {
-        id: "apple",
-        name: "Apple Gift Card",
-        category: "giftcards",
-        type: "Gift Card",
-        icon: "🍎",
-        description: "Tarjetas digitales Apple.",
-        price: 10
+        id:"ff-membresia",
+        name:"Free Fire — Tarjeta (membresía)",
+        category:"juegos",
+        type:"Free Fire",
+        icon:"💳",
+        description:"Membresía. Consulta disponibilidad y precio.",
+        price:null
     },
 
     {
-        id: "nintendo",
-        name: "Nintendo Gift Card",
-        category: "giftcards",
-        type: "Gift Card",
-        icon: "🎮",
-        description: "Tarjetas digitales Nintendo.",
-        price: 10
+        id:"ff-basica",
+        name:"Free Fire — Tarjeta básica",
+        category:"juegos",
+        type:"Free Fire",
+        icon:"💳",
+        description:"Tarjeta básica. Consulta precio.",
+        price:null
+    },
+
+    {
+        id:"ff-semanal",
+        name:"Free Fire — R. Semanal",
+        category:"juegos",
+        type:"Free Fire",
+        icon:"📅",
+        description:"Recarga semanal. Consulta precio.",
+        price:null
+    },
+
+    {
+        id:"ff-mensual",
+        name:"Free Fire — T. Mensual",
+        category:"juegos",
+        type:"Free Fire",
+        icon:"📅",
+        description:"Tarjeta mensual. Consulta precio.",
+        price:null
+    },
+
+
+    /* =====================================================
+       ROBLOX
+    ===================================================== */
+
+    {
+        id:"roblox-270",
+        name:"Roblox — 270 Robux",
+        category:"juegos",
+        type:"Roblox",
+        icon:"🟥",
+        description:"270 Robux.",
+        price:null
+    },
+
+    {
+        id:"roblox-500",
+        name:"Roblox — 500 Robux",
+        category:"juegos",
+        type:"Roblox",
+        icon:"🟥",
+        description:"500 Robux.",
+        price:null
+    },
+
+    {
+        id:"roblox-1000",
+        name:"Roblox — 1.000 Robux",
+        category:"juegos",
+        type:"Roblox",
+        icon:"🟥",
+        description:"1.000 Robux.",
+        price:null
+    },
+
+    {
+        id:"roblox-1500",
+        name:"Roblox — 1.500 Robux",
+        category:"juegos",
+        type:"Roblox",
+        icon:"🟥",
+        description:"1.500 Robux.",
+        price:null
+    },
+
+    {
+        id:"roblox-2000",
+        name:"Roblox — 2.000 Robux",
+        category:"juegos",
+        type:"Roblox",
+        icon:"🟥",
+        description:"2.000 Robux.",
+        price:null
+    },
+
+    {
+        id:"roblox-3625",
+        name:"Roblox — 3.625 Robux",
+        category:"juegos",
+        type:"Roblox",
+        icon:"🟥",
+        description:"3.625 Robux.",
+        price:null
+    },
+
+    {
+        id:"roblox-5250",
+        name:"Roblox — 5.250 Robux",
+        category:"juegos",
+        type:"Roblox",
+        icon:"🟥",
+        description:"5.250 Robux.",
+        price:null
+    },
+
+    {
+        id:"roblox-11000",
+        name:"Roblox — 11.000 Robux",
+        category:"juegos",
+        type:"Roblox",
+        icon:"🟥",
+        description:"11.000 Robux.",
+        price:null
+    },
+
+
+    /* =====================================================
+       PUBG MOBILE
+    ===================================================== */
+
+    {
+        id:"pubg-60",
+        name:"PUBG Mobile — 60 UC",
+        category:"juegos",
+        type:"PUBG Mobile",
+        icon:"🎯",
+        description:"60 UC.",
+        price:null
+    },
+
+    {
+        id:"pubg-325",
+        name:"PUBG Mobile — 325 UC",
+        category:"juegos",
+        type:"PUBG Mobile",
+        icon:"🎯",
+        description:"325 UC.",
+        price:null
+    },
+
+    {
+        id:"pubg-660",
+        name:"PUBG Mobile — 660 UC",
+        category:"juegos",
+        type:"PUBG Mobile",
+        icon:"🎯",
+        description:"660 UC.",
+        price:null
+    },
+
+    {
+        id:"pubg-1800",
+        name:"PUBG Mobile — 1.800 UC",
+        category:"juegos",
+        type:"PUBG Mobile",
+        icon:"🎯",
+        description:"1.800 UC.",
+        price:null
+    },
+
+    {
+        id:"pubg-3850",
+        name:"PUBG Mobile — 3.850 UC",
+        category:"juegos",
+        type:"PUBG Mobile",
+        icon:"🎯",
+        description:"3.850 UC.",
+        price:null
+    },
+
+    {
+        id:"pubg-8100",
+        name:"PUBG Mobile — 8.100 UC",
+        category:"juegos",
+        type:"PUBG Mobile",
+        icon:"🎯",
+        description:"8.100 UC.",
+        price:null
+    },
+
+
+    /* =====================================================
+       DELTA FORCE
+    ===================================================== */
+
+    {
+        id:"delta-18",
+        name:"Delta Force — 18 Delta Coins",
+        category:"juegos",
+        type:"Delta Force",
+        icon:"🪙",
+        description:"18 Delta Coins.",
+        price:null
+    },
+
+    {
+        id:"delta-30",
+        name:"Delta Force — 30 Delta Coins",
+        category:"juegos",
+        type:"Delta Force",
+        icon:"🪙",
+        description:"30 Delta Coins.",
+        price:null
+    },
+
+    {
+        id:"delta-60",
+        name:"Delta Force — 60 Delta Coins",
+        category:"juegos",
+        type:"Delta Force",
+        icon:"🪙",
+        description:"60 Delta Coins.",
+        price:null
+    },
+
+    {
+        id:"delta-320",
+        name:"Delta Force — 320 Delta Coins",
+        category:"juegos",
+        type:"Delta Force",
+        icon:"🪙",
+        description:"320 Delta Coins.",
+        price:null
+    },
+
+    {
+        id:"delta-460",
+        name:"Delta Force — 460 Delta Coins",
+        category:"juegos",
+        type:"Delta Force",
+        icon:"🪙",
+        description:"460 Delta Coins.",
+        price:null
+    },
+
+    {
+        id:"delta-750",
+        name:"Delta Force — 750 Delta Coins",
+        category:"juegos",
+        type:"Delta Force",
+        icon:"🪙",
+        description:"750 Delta Coins.",
+        price:null
+    },
+
+    {
+        id:"delta-1480",
+        name:"Delta Force — 1.480 Delta Coins",
+        category:"juegos",
+        type:"Delta Force",
+        icon:"🪙",
+        description:"1.480 Delta Coins.",
+        price:null
+    },
+
+    {
+        id:"delta-1980",
+        name:"Delta Force — 1.980 Delta Coins",
+        category:"juegos",
+        type:"Delta Force",
+        icon:"🪙",
+        description:"1.980 Delta Coins.",
+        price:null
+    },
+
+    {
+        id:"delta-3950",
+        name:"Delta Force — 3.950 Delta Coins",
+        category:"juegos",
+        type:"Delta Force",
+        icon:"🪙",
+        description:"3.950 Delta Coins.",
+        price:null
+    },
+
+    {
+        id:"delta-8100",
+        name:"Delta Force — 8.100 Delta Coins",
+        category:"juegos",
+        type:"Delta Force",
+        icon:"🪙",
+        description:"8.100 Delta Coins.",
+        price:null
+    },
+
+
+    /* =====================================================
+       ARENA BREAKOUT
+    ===================================================== */
+
+    {
+        id:"arena-66",
+        name:"Arena Breakout — 66 Bonds",
+        category:"juegos",
+        type:"Arena Breakout",
+        icon:"💠",
+        description:"66 Bonds.",
+        price:null
+    },
+
+    {
+        id:"arena-335",
+        name:"Arena Breakout — 335 Bonds",
+        category:"juegos",
+        type:"Arena Breakout",
+        icon:"💠",
+        description:"335 Bonds.",
+        price:null
+    },
+
+    {
+        id:"arena-675",
+        name:"Arena Breakout — 675 Bonds",
+        category:"juegos",
+        type:"Arena Breakout",
+        icon:"💠",
+        description:"675 Bonds.",
+        price:null
+    },
+
+    {
+        id:"arena-1690",
+        name:"Arena Breakout — 1.690 Bonds",
+        category:"juegos",
+        type:"Arena Breakout",
+        icon:"💠",
+        description:"1.690 Bonds.",
+        price:null
+    },
+
+    {
+        id:"arena-3400",
+        name:"Arena Breakout — 3.400 Bonds",
+        category:"juegos",
+        type:"Arena Breakout",
+        icon:"💠",
+        description:"3.400 Bonds.",
+        price:null
+    },
+
+    {
+        id:"arena-6820",
+        name:"Arena Breakout — 6.820 Bonds",
+        category:"juegos",
+        type:"Arena Breakout",
+        icon:"💠",
+        description:"6.820 Bonds.",
+        price:null
+    },
+
+
+    /* =====================================================
+       BLOOD STRIKE
+    ===================================================== */
+
+    {
+        id:"blood-100",
+        name:"Blood Strike — 100 + 5",
+        category:"juegos",
+        type:"Blood Strike",
+        icon:"🔫",
+        description:"100 + 5 Gold.",
+        price:null
+    },
+
+    {
+        id:"blood-300",
+        name:"Blood Strike — 300 + 20 Gold",
+        category:"juegos",
+        type:"Blood Strike",
+        icon:"🔫",
+        description:"300 + 20 Gold.",
+        price:null
+    },
+
+    {
+        id:"blood-500",
+        name:"Blood Strike — 500 + 40 Gold",
+        category:"juegos",
+        type:"Blood Strike",
+        icon:"🔫",
+        description:"500 + 40 Gold.",
+        price:null
+    },
+
+    {
+        id:"blood-1000",
+        name:"Blood Strike — 1.000 + 100 Gold",
+        category:"juegos",
+        type:"Blood Strike",
+        icon:"🔫",
+        description:"1.000 + 100 Gold.",
+        price:null
+    },
+
+    {
+        id:"blood-2000",
+        name:"Blood Strike — 2.000 + 260 Gold",
+        category:"juegos",
+        type:"Blood Strike",
+        icon:"🔫",
+        description:"2.000 + 260 Gold.",
+        price:null
+    },
+
+    {
+        id:"blood-5000",
+        name:"Blood Strike — 5.000 + 800 Gold",
+        category:"juegos",
+        type:"Blood Strike",
+        icon:"🔫",
+        description:"5.000 + 800 Gold.",
+        price:null
+    },
+
+
+    /* =====================================================
+       CALL OF DUTY
+    ===================================================== */
+
+    {
+        id:"cod-63",
+        name:"Call of Duty — 63 CP",
+        category:"juegos",
+        type:"Call of Duty",
+        icon:"🎖️",
+        description:"63 CP.",
+        price:null
+    },
+
+    {
+        id:"cod-128",
+        name:"Call of Duty — 128 CP",
+        category:"juegos",
+        type:"Call of Duty",
+        icon:"🎖️",
+        description:"128 CP.",
+        price:null
+    },
+
+    {
+        id:"cod-321",
+        name:"Call of Duty — 321 CP",
+        category:"juegos",
+        type:"Call of Duty",
+        icon:"🎖️",
+        description:"321 CP.",
+        price:null
+    },
+
+    {
+        id:"cod-645",
+        name:"Call of Duty — 645 CP",
+        category:"juegos",
+        type:"Call of Duty",
+        icon:"🎖️",
+        description:"645 CP.",
+        price:null
+    },
+
+    {
+        id:"cod-1373",
+        name:"Call of Duty — 1.373 CP",
+        category:"juegos",
+        type:"Call of Duty",
+        icon:"🎖️",
+        description:"1.373 CP.",
+        price:null
+    },
+
+    {
+        id:"cod-2060",
+        name:"Call of Duty — 2.060 CP",
+        category:"juegos",
+        type:"Call of Duty",
+        icon:"🎖️",
+        description:"2.060 CP.",
+        price:null
+    },
+
+    {
+        id:"cod-3564",
+        name:"Call of Duty — 3.564 CP",
+        category:"juegos",
+        type:"Call of Duty",
+        icon:"🎖️",
+        description:"3.564 CP.",
+        price:null
+    },
+
+    {
+        id:"cod-7656",
+        name:"Call of Duty — 7.656 CP",
+        category:"juegos",
+        type:"Call of Duty",
+        icon:"🎖️",
+        description:"7.656 CP.",
+        price:null
+    },
+
+
+    /* =====================================================
+       GIFT CARDS
+    ===================================================== */
+
+    {
+        id:"gift-apple",
+        name:"Apple Gift Card",
+        category:"giftcards",
+        type:"Gift Card",
+        icon:"🍎",
+        description:"Consulta disponibilidad y precio por WhatsApp.",
+        price:null,
+        consultationOnly:true
+    },
+
+    {
+        id:"gift-google",
+        name:"Google Play USA",
+        category:"giftcards",
+        type:"Gift Card",
+        icon:"▶️",
+        description:"Gift Card Google Play USA. Consulta.",
+        price:null,
+        consultationOnly:true
+    },
+
+    {
+        id:"gift-steam",
+        name:"Steam Wallet",
+        category:"giftcards",
+        type:"Gift Card",
+        icon:"🎮",
+        description:"Steam Wallet. Consulta disponibilidad.",
+        price:null,
+        consultationOnly:true
+    },
+
+    {
+        id:"gift-playstation",
+        name:"PlayStation Store",
+        category:"giftcards",
+        type:"Gift Card",
+        icon:"🎮",
+        description:"PlayStation Store. Consulta disponibilidad.",
+        price:null,
+        consultationOnly:true
+    },
+
+    {
+        id:"gift-xbox",
+        name:"Xbox Card",
+        category:"giftcards",
+        type:"Gift Card",
+        icon:"🟢",
+        description:"Xbox Card. Consulta disponibilidad.",
+        price:null,
+        consultationOnly:true
+    },
+
+    {
+        id:"gift-discord",
+        name:"Discord USA",
+        category:"giftcards",
+        type:"Gift Card",
+        icon:"💬",
+        description:"Discord USA. Consulta disponibilidad.",
+        price:null,
+        consultationOnly:true
+    },
+
+
+    /* =====================================================
+       TV / STREAMING
+    ===================================================== */
+
+    {
+        id:"netflix-1",
+        name:"Netflix — 1 pantalla",
+        category:"servicios",
+        type:"Netflix",
+        icon:"📺",
+        description:"1 pantalla.",
+        price:6
+    },
+
+    {
+        id:"netflix-2",
+        name:"Netflix — 2 Duo",
+        category:"servicios",
+        type:"Netflix",
+        icon:"📺",
+        description:"2 pantallas.",
+        price:8
+    },
+
+    {
+        id:"netflix-4",
+        name:"Netflix — 4 Familiar",
+        category:"servicios",
+        type:"Netflix",
+        icon:"📺",
+        description:"4 pantallas.",
+        price:12
+    },
+
+    {
+        id:"disney-standard",
+        name:"Disney+ Estándar",
+        category:"servicios",
+        type:"Disney+",
+        icon:"🎬",
+        description:
+            "Disney • Pixar • Marvel • Star Wars • National Geographic • Hulu*. Full HD 1080p • 2 pantallas • Audio 5.1 • Descargas*.",
+        price:17.5
+    },
+
+    {
+        id:"hbo-basic",
+        name:"HBO Max — Básica con anuncios",
+        category:"servicios",
+        type:"HBO Max",
+        icon:"🎬",
+        description:
+            "2 dispositivos a la vez. Resolución Full HD.",
+        price:10.5
+    },
+
+    {
+        id:"hbo-standard",
+        name:"HBO Max — Estándar",
+        category:"servicios",
+        type:"HBO Max",
+        icon:"🎬",
+        description:
+            "2 dispositivos a la vez. Full HD. 30 descargas.",
+        price:17.5
+    },
+
+    {
+        id:"hbo-premium",
+        name:"HBO Max — Premium",
+        category:"servicios",
+        type:"HBO Max",
+        icon:"🎬",
+        description:
+            "4 dispositivos. 4K UHD y Dolby Atmos a disponibilidad. 100 descargas sujeto a límites.",
+        price:22.5
+    },
+
+    {
+        id:"hbo-dazn",
+        name:"HBO Max + DAZN",
+        category:"servicios",
+        type:"HBO Max + DAZN",
+        icon:"🏆",
+        description:
+            "4 dispositivos a la vez. Deportes solo en 2. HBO Max, Eurosport, DAZN 1-4, DAZN F1 y DAZN LALIGA.",
+        price:65
+    },
+
+    {
+        id:"prime",
+        name:"Prime Video",
+        category:"servicios",
+        type:"Prime Video",
+        icon:"▶️",
+        description:"Prime Video.",
+        price:14
+    },
+
+    {
+        id:"prime-ultra",
+        name:"Prime Video Ultra",
+        category:"servicios",
+        type:"Prime Video",
+        icon:"▶️",
+        description:"Prime Video Ultra.",
+        price:20
+    },
+
+    {
+        id:"youtube-life",
+        name:"YouTube Premium Life",
+        category:"servicios",
+        type:"YouTube Premium",
+        icon:"▶️",
+        description:"Cancela la mayoría de anuncios.",
+        price:7.5
+    },
+
+    {
+        id:"youtube-premium",
+        name:"YouTube Premium",
+        category:"servicios",
+        type:"YouTube Premium",
+        icon:"▶️",
+        description:"YouTube Premium.",
+        price:11.99
+    },
+
+    {
+        id:"paramount",
+        name:"Paramount+ Mensual",
+        category:"servicios",
+        type:"Paramount+",
+        icon:"⭐",
+        description:"Suscripción mensual.",
+        price:9
+    },
+
+
+    /* =====================================================
+       MINECRAFT
+    ===================================================== */
+
+    {
+        id:"minecraft-java-bedrock",
+        name:"Minecraft: Java and Bedrock Edition PC Windows Account",
+        category:"juegos",
+        type:"Minecraft",
+        icon:"⛏️",
+        description:"Cuenta PC Windows.",
+        price:18
+    },
+
+    {
+        id:"minecraft-mojang",
+        name:"Minecraft: Java and Bedrock Edition for PC Mojang Account",
+        category:"juegos",
+        type:"Minecraft",
+        icon:"⛏️",
+        description:"Cuenta Mojang para PC.",
+        price:18.2
+    },
+
+    {
+        id:"minecraft-xbox",
+        name:"Minecraft Xbox One / Xbox Series X|S Account",
+        category:"juegos",
+        type:"Minecraft",
+        icon:"⛏️",
+        description:"Cuenta para Xbox One / Xbox Series X|S.",
+        price:11
+    },
+
+
+    /* =====================================================
+       TIKTOK
+    ===================================================== */
+
+    {
+        id:"tiktok-20",
+        name:"TikTok — 20 Coins",
+        category:"servicios",
+        type:"TikTok",
+        icon:"🎵",
+        description:"20 Coins.",
+        price:null
+    },
+
+    {
+        id:"tiktok-50",
+        name:"TikTok — 50 Coins",
+        category:"servicios",
+        type:"TikTok",
+        icon:"🎵",
+        description:"50 Coins.",
+        price:null
+    },
+
+    {
+        id:"tiktok-100",
+        name:"TikTok — 100 Coins",
+        category:"servicios",
+        type:"TikTok",
+        icon:"🎵",
+        description:"100 Coins.",
+        price:null
+    },
+
+    {
+        id:"tiktok-150",
+        name:"TikTok — 150 Coins",
+        category:"servicios",
+        type:"TikTok",
+        icon:"🎵",
+        description:"150 Coins.",
+        price:null
+    },
+
+    {
+        id:"tiktok-300",
+        name:"TikTok — 300 Coins",
+        category:"servicios",
+        type:"TikTok",
+        icon:"🎵",
+        description:"300 Coins.",
+        price:null
+    },
+
+    {
+        id:"tiktok-500",
+        name:"TikTok — 500 Coins",
+        category:"servicios",
+        type:"TikTok",
+        icon:"🎵",
+        description:"500 Coins.",
+        price:null
+    },
+
+    {
+        id:"tiktok-1000",
+        name:"TikTok — 1.000 Coins",
+        category:"servicios",
+        type:"TikTok",
+        icon:"🎵",
+        description:"1.000 Coins.",
+        price:null
+    },
+
+    {
+        id:"tiktok-custom",
+        name:"TikTok — Monto personalizado",
+        category:"servicios",
+        type:"TikTok",
+        icon:"🎵",
+        description:"Indica la cantidad de Coins que deseas.",
+        price:null
     }
 
 ]);
@@ -2430,6 +3530,8 @@ let cart = [];
 let currentFilter = "todos";
 
 let searchTerm = "";
+
+let currentUSDT = null;
 
 
 /* =========================================================
@@ -2460,12 +3562,27 @@ const toast =
 const supportNumber =
     document.getElementById("supportNumber");
 
+const usdtRate =
+    document.getElementById("usdtRate");
+
+const rateUpdated =
+    document.getElementById("rateUpdated");
+
+const rateWidget =
+    document.getElementById("rateWidget");
+
+const rateDragHandle =
+    document.getElementById("rateDragHandle");
+
+const rateRefresh =
+    document.getElementById("rateRefresh");
+
 
 /* =========================================================
-   UTILIDADES DE SEGURIDAD
+   UTILIDADES
 ========================================================= */
 
-function safeNumber(value, fallback = 0){
+function safeNumber(value,fallback=0){
 
     const number = Number(value);
 
@@ -2474,6 +3591,7 @@ function safeNumber(value, fallback = 0){
     }
 
     return number;
+
 }
 
 
@@ -2488,6 +3606,7 @@ function sanitizeQuantity(value){
         Math.max(quantity,1),
         99
     );
+
 }
 
 
@@ -2510,8 +3629,36 @@ function normalizeSearch(value){
 }
 
 
+function formatUSD(value){
+
+    return new Intl.NumberFormat(
+        "en-US",
+        {
+            style:"currency",
+            currency:"USD",
+            minimumFractionDigits:2,
+            maximumFractionDigits:2
+        }
+    ).format(value);
+
+}
+
+
+function formatVES(value){
+
+    return new Intl.NumberFormat(
+        "es-VE",
+        {
+            minimumFractionDigits:2,
+            maximumFractionDigits:2
+        }
+    ).format(value);
+
+}
+
+
 /* =========================================================
-   LOCAL STORAGE SEGURO BÁSICO
+   LOCAL STORAGE
 ========================================================= */
 
 function saveCart(){
@@ -2525,7 +3672,9 @@ function saveCart(){
                 )
                 .map(item => ({
                     id:item.id,
-                    quantity:sanitizeQuantity(item.quantity)
+                    quantity:sanitizeQuantity(
+                        item.quantity
+                    )
                 }));
 
         localStorage.setItem(
@@ -2552,7 +3701,9 @@ function loadCart(){
             localStorage.getItem("rp_cart");
 
         if(!raw){
+
             cart = [];
+
             return;
         }
 
@@ -2560,7 +3711,9 @@ function loadCart(){
             JSON.parse(raw);
 
         if(!Array.isArray(parsed)){
+
             cart = [];
+
             return;
         }
 
@@ -2600,7 +3753,7 @@ let toastTimer = null;
 function showToast(message){
 
     toast.textContent =
-        String(message).slice(0,180);
+        String(message).slice(0,220);
 
     toast.classList.add("show");
 
@@ -2617,6 +3770,423 @@ function showToast(message){
 
 
 /* =========================================================
+   TASA USDT / VES
+========================================================= */
+
+function extractUSDT(data){
+
+    if(
+        !data ||
+        !data.success ||
+        !data.data
+    ){
+
+        return null;
+    }
+
+
+    const binance =
+        safeNumber(
+            data.data?.binance?.buy_rate,
+            NaN
+        );
+
+
+    const bybit =
+        safeNumber(
+            data.data?.bybit?.buy_rate,
+            NaN
+        );
+
+
+    const best =
+        safeNumber(
+            data.data?.best?.buy_rate,
+            NaN
+        );
+
+
+    if(Number.isFinite(best) && best > 0){
+
+        return best;
+    }
+
+
+    if(Number.isFinite(binance) && binance > 0){
+
+        return binance;
+    }
+
+
+    if(Number.isFinite(bybit) && bybit > 0){
+
+        return bybit;
+    }
+
+
+    return null;
+
+}
+
+
+async function updateUSDT(){
+
+    usdtRate.textContent =
+        "Actualizando...";
+
+    try{
+
+        const response =
+            await fetch(
+                USDT_API,
+                {
+                    method:"GET",
+                    cache:"no-store",
+                    headers:{
+                        "Accept":"application/json"
+                    }
+                }
+            );
+
+
+        if(!response.ok){
+
+            throw new Error(
+                "Respuesta HTTP no válida"
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        const rate =
+            extractUSDT(data);
+
+
+        if(
+            !Number.isFinite(rate) ||
+            rate <= 0
+        ){
+
+            throw new Error(
+                "Tasa no disponible"
+            );
+
+        }
+
+
+        currentUSDT = rate;
+
+
+        usdtRate.innerHTML = "";
+
+        const one =
+            document.createElement("span");
+
+        one.textContent =
+            "1 USDT";
+
+        const equals =
+            document.createTextNode(
+                " = "
+            );
+
+        const value =
+            document.createElement("span");
+
+        value.textContent =
+            `${formatVES(rate)} Bs.`;
+
+        usdtRate.append(
+            one,
+            equals,
+            value
+        );
+
+
+        const captured =
+            data?.data?.captured_at;
+
+
+        if(captured){
+
+            const date =
+                new Date(captured);
+
+            if(!Number.isNaN(date.getTime())){
+
+                rateUpdated.textContent =
+                    `Actualizado ${date.toLocaleTimeString(
+                        "es-VE",
+                        {
+                            hour:"2-digit",
+                            minute:"2-digit"
+                        }
+                    )}`;
+
+            }else{
+
+                rateUpdated.textContent =
+                    "Actualizado recientemente";
+
+            }
+
+        }else{
+
+            rateUpdated.textContent =
+                "Actualizado recientemente";
+
+        }
+
+
+        /*
+           Guardamos únicamente la última tasa válida
+           para poder mostrarla si la API falla.
+        */
+
+        try{
+
+            localStorage.setItem(
+                "rp_last_usdt",
+                JSON.stringify({
+                    rate:rate,
+                    timestamp:Date.now()
+                })
+            );
+
+        }catch(_){}
+
+
+    }catch(error){
+
+        console.warn(
+            "No se pudo actualizar la tasa USDT/VES.",
+            error
+        );
+
+
+        try{
+
+            const raw =
+                localStorage.getItem(
+                    "rp_last_usdt"
+                );
+
+
+            if(raw){
+
+                const saved =
+                    JSON.parse(raw);
+
+
+                const savedRate =
+                    safeNumber(
+                        saved.rate,
+                        NaN
+                    );
+
+
+                if(
+                    Number.isFinite(savedRate) &&
+                    savedRate > 0
+                ){
+
+                    currentUSDT =
+                        savedRate;
+
+
+                    usdtRate.textContent =
+                        `1 USDT = ${formatVES(
+                            savedRate
+                        )} Bs.`;
+
+                    rateUpdated.textContent =
+                        "Última tasa disponible";
+
+                    return;
+                }
+
+            }
+
+        }catch(_){}
+
+
+        usdtRate.textContent =
+            "Tasa no disponible";
+
+        rateUpdated.textContent =
+            "Reintenta en unos minutos";
+
+    }
+
+}
+
+
+/* =========================================================
+   WIDGET MOVIBLE
+========================================================= */
+
+(function setupDraggableRate(){
+
+    let dragging = false;
+
+    let offsetX = 0;
+
+    let offsetY = 0;
+
+
+    function start(clientX,clientY){
+
+        const rect =
+            rateWidget.getBoundingClientRect();
+
+
+        dragging = true;
+
+
+        offsetX =
+            clientX - rect.left;
+
+        offsetY =
+            clientY - rect.top;
+
+
+        rateWidget.classList.add(
+            "dragging"
+        );
+
+    }
+
+
+    function move(clientX,clientY){
+
+        if(!dragging){
+            return;
+        }
+
+
+        let left =
+            clientX - offsetX;
+
+
+        let top =
+            clientY - offsetY;
+
+
+        const maxLeft =
+            window.innerWidth -
+            rateWidget.offsetWidth -
+            8;
+
+
+        const maxTop =
+            window.innerHeight -
+            rateWidget.offsetHeight -
+            8;
+
+
+        left =
+            Math.max(
+                8,
+                Math.min(
+                    left,
+                    maxLeft
+                )
+            );
+
+
+        top =
+            Math.max(
+                8,
+                Math.min(
+                    top,
+                    maxTop
+                )
+            );
+
+
+        rateWidget.style.left =
+            `${left}px`;
+
+        rateWidget.style.top =
+            `${top}px`;
+
+        rateWidget.style.right =
+            "auto";
+
+        rateWidget.style.bottom =
+            "auto";
+
+    }
+
+
+    function stop(){
+
+        dragging = false;
+
+        rateWidget.classList.remove(
+            "dragging"
+        );
+
+    }
+
+
+    rateDragHandle.addEventListener(
+        "pointerdown",
+        event => {
+
+            event.preventDefault();
+
+            rateDragHandle.setPointerCapture(
+                event.pointerId
+            );
+
+            start(
+                event.clientX,
+                event.clientY
+            );
+
+        }
+    );
+
+
+    rateDragHandle.addEventListener(
+        "pointermove",
+        event => {
+
+            move(
+                event.clientX,
+                event.clientY
+            );
+
+        }
+    );
+
+
+    rateDragHandle.addEventListener(
+        "pointerup",
+        stop
+    );
+
+
+    rateDragHandle.addEventListener(
+        "pointercancel",
+        stop
+    );
+
+})();
+
+
+rateRefresh.addEventListener(
+    "click",
+    updateUSDT
+);
+
+
+/* =========================================================
    PRODUCTOS
 ========================================================= */
 
@@ -2624,12 +4194,14 @@ function renderProducts(){
 
     productsContainer.textContent = "";
 
+
     const filtered =
         PRODUCTS.filter(product => {
 
             const matchesFilter =
                 currentFilter === "todos" ||
                 product.category === currentFilter;
+
 
             const text =
                 (
@@ -2640,9 +4212,11 @@ function renderProducts(){
                     product.type
                 ).toLowerCase();
 
+
             const matchesSearch =
                 !searchTerm ||
                 text.includes(searchTerm);
+
 
             return matchesFilter &&
                    matchesSearch;
@@ -2657,11 +4231,13 @@ function renderProducts(){
 
         empty.className = "empty";
 
+
         const strong =
             document.createElement("strong");
 
         strong.textContent =
             "No encontramos ese producto";
+
 
         const span =
             document.createElement("span");
@@ -2669,12 +4245,17 @@ function renderProducts(){
         span.textContent =
             "Prueba con otro nombre o categoría.";
 
+
         empty.append(
             strong,
             span
         );
 
-        productsContainer.appendChild(empty);
+
+        productsContainer.appendChild(
+            empty
+        );
+
 
         return;
     }
@@ -2686,16 +4267,22 @@ function renderProducts(){
             const card =
                 document.createElement("article");
 
-            card.className = "product";
+            card.className =
+                "product";
+
 
             card.style.animationDelay =
-                `${Math.min(index * 35,300)}ms`;
+                `${Math.min(
+                    index * 35,
+                    300
+                )}ms`;
 
 
             const top =
                 document.createElement("div");
 
-            top.className = "product-top";
+            top.className =
+                "product-top";
 
             top.textContent =
                 product.icon;
@@ -2704,7 +4291,8 @@ function renderProducts(){
             const body =
                 document.createElement("div");
 
-            body.className = "product-body";
+            body.className =
+                "product-body";
 
 
             const category =
@@ -2738,28 +4326,117 @@ function renderProducts(){
                 "product-bottom";
 
 
+            /*
+               Gift Cards:
+               solamente se muestra el servicio
+               y un botón para consultar.
+            */
+
+            if(product.consultationOnly){
+
+                const query =
+                    document.createElement("button");
+
+                query.className =
+                    "query-btn";
+
+                query.type =
+                    "button";
+
+                query.textContent =
+                    "💬 Consultar";
+
+                query.addEventListener(
+                    "click",
+                    () => consultProduct(
+                        product.name
+                    )
+                );
+
+
+                body.append(
+                    category,
+                    title,
+                    description
+                );
+
+
+                bottom.append(
+                    query
+                );
+
+
+                body.append(
+                    bottom
+                );
+
+
+                card.append(
+                    top,
+                    body
+                );
+
+
+                productsContainer.appendChild(
+                    card
+                );
+
+
+                return;
+            }
+
+
             const price =
                 document.createElement("div");
 
-            price.className = "price";
 
-            price.textContent =
-                `$${product.price.toFixed(2)}`;
+            price.className =
+                "price";
+
+
+            if(
+                product.price === null ||
+                !Number.isFinite(
+                    Number(product.price)
+                )
+            ){
+
+                price.classList.add(
+                    "consult"
+                );
+
+                price.textContent =
+                    "Consultar";
+
+            }else{
+
+                price.textContent =
+                    formatUSD(
+                        Number(product.price)
+                    );
+
+            }
 
 
             const add =
                 document.createElement("button");
 
-            add.className = "add";
 
-            add.type = "button";
+            add.className =
+                "add";
 
-            add.textContent = "+";
+            add.type =
+                "button";
+
+            add.textContent =
+                "+";
+
 
             add.setAttribute(
                 "aria-label",
                 `Agregar ${product.name}`
             );
+
 
             add.addEventListener(
                 "click",
@@ -2787,9 +4464,46 @@ function renderProducts(){
             );
 
 
-            productsContainer.appendChild(card);
+            productsContainer.appendChild(
+                card
+            );
 
         }
+    );
+
+}
+
+
+/* =========================================================
+   CONSULTAR PRODUCTO
+========================================================= */
+
+function consultProduct(productName){
+
+    const number =
+        SUPPORT_NUMBERS.principal;
+
+
+    const message =
+`Hola RECARGAS PLUS 👋
+
+Quiero consultar el precio/disponibilidad de:
+
+${productName}
+
+Por favor, indíquenme el precio y cómo realizar el pedido.`;
+
+
+    const url =
+        `https://wa.me/${number}?text=${
+            encodeURIComponent(message)
+        }`;
+
+
+    window.open(
+        url,
+        "_blank",
+        "noopener,noreferrer"
     );
 
 }
@@ -2808,6 +4522,7 @@ function filterProducts(category){
             "servicios",
             "giftcards"
         ];
+
 
     currentFilter =
         allowed.includes(category)
@@ -2829,7 +4544,9 @@ function filterProducts(category){
 
     renderProducts();
 
-    scrollToSection("catalogo");
+    scrollToSection(
+        "catalogo"
+    );
 
 }
 
@@ -2852,6 +4569,7 @@ function addToCart(id){
 
     const product =
         getProductById(id);
+
 
     if(!product){
 
@@ -2891,6 +4609,7 @@ function addToCart(id){
 
     renderCart();
 
+
     showToast(
         `${product.name} agregado al carrito.`
     );
@@ -2904,6 +4623,7 @@ function removeFromCart(id){
         cart.filter(
             item => item.id !== id
         );
+
 
     saveCart();
 
@@ -2919,7 +4639,19 @@ function changeQuantity(id,change){
             item => item.id === id
         );
 
+
     if(!item){
+        return;
+    }
+
+
+    if(
+        change < 0 &&
+        item.quantity === 1
+    ){
+
+        removeFromCart(id);
+
         return;
     }
 
@@ -2928,24 +4660,6 @@ function changeQuantity(id,change){
         sanitizeQuantity(
             item.quantity + change
         );
-
-
-    if(change < 0 &&
-       item.quantity <= 1){
-
-        if(
-            confirm(
-                "¿Quieres eliminar este producto del carrito?"
-            )
-        ){
-
-            removeFromCart(id);
-
-            return;
-
-        }
-
-    }
 
 
     saveCart();
@@ -2969,6 +4683,7 @@ function renderCart(){
         const empty =
             document.createElement("p");
 
+
         empty.style.cssText =
             `
             color:#9aa7b8;
@@ -2976,15 +4691,23 @@ function renderCart(){
             padding:30px 0;
             `;
 
+
         empty.textContent =
             "Tu carrito está vacío.";
 
-        cartItems.appendChild(empty);
 
-        cartCount.textContent = "0";
+        cartItems.appendChild(
+            empty
+        );
+
+
+        cartCount.textContent =
+            "0";
+
 
         cartTotal.textContent =
             "$0.00";
+
 
         return;
     }
@@ -2994,11 +4717,14 @@ function renderCart(){
 
     let quantityTotal = 0;
 
+    let hasConsultations = false;
+
 
     cart.forEach(item => {
 
         const product =
             getProductById(item.id);
+
 
         if(!product){
             return;
@@ -3011,17 +4737,13 @@ function renderCart(){
             );
 
 
-        const subtotal =
-            product.price * quantity;
-
-
-        total += subtotal;
-
-        quantityTotal += quantity;
+        quantityTotal +=
+            quantity;
 
 
         const row =
             document.createElement("div");
+
 
         row.className =
             "cart-item";
@@ -3030,6 +4752,7 @@ function renderCart(){
         const info =
             document.createElement("div");
 
+
         info.className =
             "cart-item-info";
 
@@ -3037,8 +4760,10 @@ function renderCart(){
         const name =
             document.createElement("div");
 
+
         name.className =
             "cart-item-name";
+
 
         name.textContent =
             `${product.icon} ${product.name}`;
@@ -3047,25 +4772,61 @@ function renderCart(){
         const meta =
             document.createElement("div");
 
+
         meta.className =
             "cart-item-meta";
 
-        meta.textContent =
-            `${product.type} · $${product.price.toFixed(2)} c/u`;
+
+        if(product.price === null){
+
+            hasConsultations = true;
+
+
+            meta.textContent =
+                `${product.type} · Precio por consultar`;
+
+        }else{
+
+            meta.textContent =
+                `${product.type} · ${formatUSD(
+                    product.price
+                )} c/u`;
+
+        }
 
 
         const subtotalElement =
             document.createElement("div");
 
+
         subtotalElement.className =
             "cart-item-price";
 
-        subtotalElement.textContent =
-            `$${subtotal.toFixed(2)}`;
+
+        if(product.price === null){
+
+            subtotalElement.textContent =
+                "Consultar";
+
+        }else{
+
+            const subtotal =
+                product.price *
+                quantity;
+
+
+            total += subtotal;
+
+
+            subtotalElement.textContent =
+                formatUSD(subtotal);
+
+        }
 
 
         const quantityBox =
             document.createElement("div");
+
 
         quantityBox.className =
             "quantity";
@@ -3074,23 +4835,32 @@ function renderCart(){
         const minus =
             document.createElement("button");
 
-        minus.type = "button";
 
-        minus.textContent = "−";
+        minus.type =
+            "button";
+
+        minus.textContent =
+            "−";
+
 
         minus.setAttribute(
             "aria-label",
             `Reducir cantidad de ${product.name}`
         );
 
+
         minus.addEventListener(
             "click",
-            () => changeQuantity(product.id,-1)
+            () => changeQuantity(
+                product.id,
+                -1
+            )
         );
 
 
         const quantityText =
             document.createElement("span");
+
 
         quantityText.textContent =
             String(quantity);
@@ -3099,18 +4869,26 @@ function renderCart(){
         const plus =
             document.createElement("button");
 
-        plus.type = "button";
 
-        plus.textContent = "+";
+        plus.type =
+            "button";
+
+        plus.textContent =
+            "+";
+
 
         plus.setAttribute(
             "aria-label",
             `Aumentar cantidad de ${product.name}`
         );
 
+
         plus.addEventListener(
             "click",
-            () => changeQuantity(product.id,1)
+            () => changeQuantity(
+                product.id,
+                1
+            )
         );
 
 
@@ -3132,16 +4910,24 @@ function renderCart(){
         const remove =
             document.createElement("button");
 
-        remove.className = "remove";
 
-        remove.type = "button";
+        remove.className =
+            "remove";
+
+
+        remove.type =
+            "button";
+
 
         remove.textContent =
             "Eliminar";
 
+
         remove.addEventListener(
             "click",
-            () => removeFromCart(product.id)
+            () => removeFromCart(
+                product.id
+            )
         );
 
 
@@ -3151,7 +4937,9 @@ function renderCart(){
         );
 
 
-        cartItems.appendChild(row);
+        cartItems.appendChild(
+            row
+        );
 
     });
 
@@ -3162,8 +4950,17 @@ function renderCart(){
             : String(quantityTotal);
 
 
-    cartTotal.textContent =
-        `$${total.toFixed(2)}`;
+    if(hasConsultations){
+
+        cartTotal.textContent =
+            `${formatUSD(total)} + consulta`;
+
+    }else{
+
+        cartTotal.textContent =
+            formatUSD(total);
+
+    }
 
 }
 
@@ -3176,9 +4973,13 @@ function openCart(){
 
     renderCart();
 
-    cartPanel.classList.add("show");
+    cartPanel.classList.add(
+        "show"
+    );
 
-    overlay.classList.add("show");
+    overlay.classList.add(
+        "show"
+    );
 
     overlay.setAttribute(
         "aria-hidden",
@@ -3193,9 +4994,13 @@ function openCart(){
 
 function closeCart(){
 
-    cartPanel.classList.remove("show");
+    cartPanel.classList.remove(
+        "show"
+    );
 
-    overlay.classList.remove("show");
+    overlay.classList.remove(
+        "show"
+    );
 
     overlay.setAttribute(
         "aria-hidden",
@@ -3243,6 +5048,8 @@ function sendWhatsApp(){
 
     let total = 0;
 
+    let hasConsultations = false;
+
     const lines = [];
 
 
@@ -3250,6 +5057,7 @@ function sendWhatsApp(){
 
         const product =
             getProductById(item.id);
+
 
         if(!product){
             return;
@@ -3262,16 +5070,34 @@ function sendWhatsApp(){
             );
 
 
-        const subtotal =
-            product.price * quantity;
+        if(product.price === null){
+
+            hasConsultations = true;
 
 
-        total += subtotal;
+            lines.push(
+                `• ${product.name} x${quantity} — CONSULTAR PRECIO`
+            );
 
 
-        lines.push(
-            `• ${product.name} x${quantity} — $${subtotal.toFixed(2)}`
-        );
+        }else{
+
+            const subtotal =
+                product.price *
+                quantity;
+
+
+            total +=
+                subtotal;
+
+
+            lines.push(
+                `• ${product.name} x${quantity} — ${formatUSD(
+                    subtotal
+                )}`
+            );
+
+        }
 
     });
 
@@ -3286,6 +5112,12 @@ function sendWhatsApp(){
     }
 
 
+    const totalLine =
+        hasConsultations
+            ? `💰 Total de productos con precio: ${formatUSD(total)}\nℹ️ Algunos productos requieren consulta de precio.`
+            : `💰 Total: ${formatUSD(total)}`;
+
+
     const message =
 `Hola RECARGAS PLUS 👋
 
@@ -3293,7 +5125,7 @@ Quiero realizar este pedido:
 
 ${lines.join("\n")}
 
-💰 Total: $${total.toFixed(2)}
+${totalLine}
 
 📲 Número de soporte seleccionado:
 ${selected === SUPPORT_NUMBERS.principal
@@ -3303,24 +5135,15 @@ ${selected === SUPPORT_NUMBERS.principal
 Por favor, indíquenme cómo continuar con el pedido.`;
 
 
-    /*
-       encodeURIComponent evita que caracteres
-       especiales rompan la URL.
-    */
-
     const encoded =
-        encodeURIComponent(message);
+        encodeURIComponent(
+            message
+        );
 
 
     const whatsappUrl =
         `https://wa.me/${selected}?text=${encoded}`;
 
-
-    /*
-       Abrimos una URL construida solamente con:
-       - número previamente permitido
-       - texto generado por la aplicación
-    */
 
     window.open(
         whatsappUrl,
@@ -3340,9 +5163,11 @@ function scrollToSection(id){
     const element =
         document.getElementById(id);
 
+
     if(!element){
         return;
     }
+
 
     element.scrollIntoView({
         behavior:"smooth",
@@ -3353,7 +5178,7 @@ function scrollToSection(id){
 
 
 /* =========================================================
-   ESCAPE PARA CERRAR
+   ESCAPE
 ========================================================= */
 
 document.addEventListener(
@@ -3382,7 +5207,15 @@ document.addEventListener(
 
     renderCart();
 
+    updateUSDT();
+
+    setInterval(
+        updateUSDT,
+        RATE_REFRESH_MS
+    );
+
 })();
+
 </script>
 
 </body>
