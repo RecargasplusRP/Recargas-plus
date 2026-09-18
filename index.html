@@ -662,8 +662,8 @@ a{
     background:
         linear-gradient(
             145deg,
-            rgba(11,18,28,.96),
-            rgba(8,12,19,.96)
+            rgba(11,18,28,.97),
+            rgba(8,12,19,.97)
         );
 
     backdrop-filter:blur(20px);
@@ -676,8 +676,26 @@ a{
     overflow:hidden;
 
     user-select:none;
+}
 
-    touch-action:none;
+.rate-widget::before{
+    content:"";
+    position:absolute;
+    inset:0;
+
+    pointer-events:none;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent 0 12%,
+            rgba(0,229,255,.06) 12% 13%,
+            transparent 13% 34%,
+            rgba(124,60,255,.06) 34% 35%,
+            transparent 35% 100%
+        );
+
+    opacity:.7;
 }
 
 .rate-widget.dragging{
@@ -685,6 +703,9 @@ a{
 }
 
 .rate-head{
+    position:relative;
+    z-index:2;
+
     display:flex;
     justify-content:space-between;
     align-items:center;
@@ -724,10 +745,32 @@ a{
 
 .rate-drag{
     color:#738095;
-    font-size:11px;
+    font-size:10px;
+}
+
+.rate-close{
+    width:24px;
+    height:24px;
+
+    border:0;
+    border-radius:7px;
+
+    background:rgba(255,255,255,.05);
+
+    color:#9aa8ba;
+
+    font-weight:900;
+}
+
+.rate-close:hover{
+    background:rgba(255,77,103,.12);
+    color:#fff;
 }
 
 .rate-main{
+    position:relative;
+    z-index:2;
+
     padding:16px;
 }
 
@@ -765,6 +808,8 @@ a{
 
     display:flex;
     justify-content:space-between;
+    align-items:center;
+
     gap:10px;
 
     color:#8290a3;
@@ -773,13 +818,17 @@ a{
 }
 
 .rate-source{
-    color:#9aa8ba;
+    color:#738095;
 
-    font-size:10px;
+    font-size:9px;
 
     margin-top:10px;
 
     line-height:1.4;
+}
+
+.rate-source a{
+    color:var(--primary);
 }
 
 .rate-refresh{
@@ -804,6 +853,39 @@ a{
 .rate-refresh:hover{
     background:
         rgba(0,229,255,.09);
+}
+
+.rate-restore{
+    position:fixed;
+
+    right:16px;
+    bottom:16px;
+
+    z-index:1799;
+
+    display:none;
+
+    border:1px solid
+        rgba(0,229,255,.35);
+
+    border-radius:13px;
+
+    padding:10px 13px;
+
+    background:
+        rgba(7,12,19,.95);
+
+    color:var(--primary);
+
+    font-size:12px;
+    font-weight:950;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.35);
+}
+
+.rate-restore.show{
+    display:block;
 }
 
 /* =========================================================
@@ -1100,13 +1182,25 @@ a{
 }
 
 .price{
-    font-size:19px;
+    font-size:17px;
     font-weight:950;
 }
 
 .price.consult{
     color:var(--warning);
-    font-size:15px;
+    font-size:14px;
+}
+
+.price-ves{
+    display:block;
+
+    margin-top:3px;
+
+    color:#8da0b5;
+
+    font-size:11px;
+
+    font-weight:700;
 }
 
 .add{
@@ -1165,6 +1259,445 @@ a{
 
     border-color:
         rgba(0,229,255,.45);
+}
+
+/* =========================================================
+   GRUPOS DEL CATÁLOGO
+========================================================= */
+
+.group-card{
+    position:relative;
+
+    overflow:hidden;
+
+    border-radius:20px;
+
+    border:1px solid var(--border);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.065),
+            rgba(255,255,255,.015)
+        );
+
+    transition:
+        transform .3s,
+        border-color .3s,
+        box-shadow .3s;
+
+    animation:
+        cardIn .45s ease both;
+}
+
+.group-card:hover{
+    transform:translateY(-7px);
+
+    border-color:
+        rgba(0,229,255,.32);
+
+    box-shadow:
+        0 25px 55px
+        rgba(0,0,0,.3);
+}
+
+.group-top{
+    min-height:145px;
+
+    display:grid;
+    place-items:center;
+
+    position:relative;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(0,229,255,.14),
+            transparent 65%
+        ),
+        #0b111a;
+
+    border-bottom:1px solid
+        rgba(255,255,255,.04);
+
+    font-size:58px;
+}
+
+.group-count{
+    position:absolute;
+
+    right:12px;
+    top:12px;
+
+    padding:6px 9px;
+
+    border-radius:20px;
+
+    background:
+        rgba(0,0,0,.45);
+
+    border:1px solid
+        rgba(255,255,255,.08);
+
+    color:#b9c7d7;
+
+    font-size:10px;
+    font-weight:900;
+}
+
+.group-body{
+    padding:18px;
+}
+
+.group-category{
+    color:var(--primary);
+
+    font-size:10px;
+
+    text-transform:uppercase;
+
+    letter-spacing:1px;
+
+    font-weight:900;
+}
+
+.group-body h3{
+    margin:7px 0;
+
+    font-size:19px;
+}
+
+.group-body p{
+    color:var(--muted);
+
+    min-height:40px;
+
+    font-size:13px;
+
+    line-height:1.5;
+}
+
+.group-button{
+    width:100%;
+
+    margin-top:15px;
+
+    border:0;
+
+    padding:12px;
+
+    border-radius:11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(0,229,255,.12),
+            rgba(124,60,255,.12)
+        );
+
+    border:1px solid
+        rgba(0,229,255,.22);
+
+    color:#fff;
+
+    font-weight:950;
+
+    transition:.2s;
+}
+
+.group-button:hover{
+    background:
+        linear-gradient(
+            135deg,
+            rgba(0,229,255,.18),
+            rgba(124,60,255,.18)
+        );
+
+    border-color:
+        rgba(0,229,255,.45);
+}
+
+/* =========================================================
+   MINI CATÁLOGO / MODAL
+========================================================= */
+
+.catalog-modal-overlay{
+    position:fixed;
+
+    inset:0;
+
+    z-index:2100;
+
+    display:none;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:20px;
+
+    background:
+        rgba(0,0,0,.76);
+
+    backdrop-filter:blur(9px);
+    -webkit-backdrop-filter:blur(9px);
+}
+
+.catalog-modal-overlay.show{
+    display:flex;
+}
+
+.catalog-modal{
+    width:min(850px,100%);
+
+    max-height:
+        min(850px,calc(100vh - 40px));
+
+    overflow:hidden;
+
+    border-radius:25px;
+
+    border:1px solid var(--border);
+
+    background:
+        linear-gradient(
+            180deg,
+            #0d1520,
+            #080d14
+        );
+
+    box-shadow:
+        0 30px 100px rgba(0,0,0,.55);
+
+    display:flex;
+    flex-direction:column;
+
+    animation:
+        modalIn .25s ease both;
+}
+
+@keyframes modalIn{
+    from{
+        opacity:0;
+        transform:translateY(15px) scale(.98);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+.catalog-modal-header{
+    padding:20px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:space-between;
+
+    gap:15px;
+
+    border-bottom:1px solid var(--border);
+
+    background:
+        rgba(255,255,255,.025);
+}
+
+.catalog-modal-title{
+    display:flex;
+    align-items:center;
+
+    gap:12px;
+}
+
+.catalog-modal-icon{
+    width:48px;
+    height:48px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:14px;
+
+    background:
+        rgba(0,229,255,.09);
+
+    font-size:25px;
+}
+
+.catalog-modal-title h2{
+    font-size:22px;
+}
+
+.catalog-modal-title p{
+    margin-top:3px;
+
+    color:var(--muted);
+
+    font-size:12px;
+}
+
+.modal-close{
+    width:40px;
+    height:40px;
+
+    border:1px solid var(--border);
+
+    border-radius:11px;
+
+    background:
+        rgba(255,255,255,.05);
+
+    color:#fff;
+
+    font-size:17px;
+}
+
+.modal-close:hover{
+    border-color:
+        rgba(255,77,103,.45);
+
+    background:
+        rgba(255,77,103,.08);
+}
+
+.catalog-modal-body{
+    padding:18px;
+
+    overflow:auto;
+}
+
+.mini-products{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:12px;
+}
+
+.mini-product{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:12px;
+
+    padding:13px;
+
+    border-radius:14px;
+
+    border:1px solid var(--border);
+
+    background:
+        rgba(255,255,255,.035);
+
+    transition:.2s;
+}
+
+.mini-product:hover{
+    border-color:
+        rgba(0,229,255,.25);
+
+    background:
+        rgba(0,229,255,.045);
+}
+
+.mini-product-info{
+    min-width:0;
+}
+
+.mini-product-name{
+    font-size:14px;
+
+    font-weight:900;
+}
+
+.mini-product-description{
+    margin-top:4px;
+
+    color:var(--muted);
+
+    font-size:11px;
+
+    line-height:1.4;
+}
+
+.mini-product-price{
+    margin-top:5px;
+
+    color:var(--primary);
+
+    font-size:13px;
+
+    font-weight:950;
+}
+
+.mini-product-ves{
+    margin-top:2px;
+
+    color:#7f91a5;
+
+    font-size:10px;
+
+    font-weight:700;
+}
+
+.mini-product-action{
+    flex:0 0 auto;
+}
+
+.mini-add{
+    min-width:43px;
+    height:38px;
+
+    padding:0 12px;
+
+    border:0;
+
+    border-radius:10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--secondary)
+        );
+
+    color:#fff;
+
+    font-weight:950;
+}
+
+.mini-consult{
+    min-width:92px;
+    height:38px;
+
+    padding:0 10px;
+
+    border:1px solid
+        rgba(0,229,255,.25);
+
+    border-radius:10px;
+
+    background:
+        rgba(0,229,255,.06);
+
+    color:#fff;
+
+    font-size:11px;
+
+    font-weight:900;
+}
+
+.mini-consult:hover{
+    border-color:
+        rgba(0,229,255,.5);
+
+    background:
+        rgba(0,229,255,.11);
 }
 
 /* =========================================================
@@ -1495,6 +2028,14 @@ a{
     color:var(--primary);
 }
 
+.cart-item-ves{
+    margin-top:2px;
+
+    color:#8092a7;
+
+    font-size:10px;
+}
+
 .remove{
     align-self:flex-start;
 
@@ -1547,6 +2088,16 @@ a{
     font-weight:950;
 
     margin-bottom:15px;
+}
+
+.total small{
+    display:block;
+
+    color:#8191a5;
+
+    font-size:11px;
+
+    margin-top:4px;
 }
 
 .full{
@@ -1749,6 +2300,10 @@ footer{
         width:
             min(300px,calc(100vw - 20px));
     }
+
+    .mini-products{
+        grid-template-columns:1fr;
+    }
 }
 
 @media(max-width:480px){
@@ -1792,6 +2347,20 @@ footer{
 
     .hero p{
         font-size:16px;
+    }
+
+    .catalog-modal-overlay{
+        padding:10px;
+    }
+
+    .catalog-modal{
+        max-height:calc(100vh - 20px);
+
+        border-radius:20px;
+    }
+
+    .mini-product{
+        align-items:flex-start;
     }
 }
 
@@ -2085,9 +2654,22 @@ select:focus-visible{
 
         </div>
 
-        <span class="rate-drag">
-            ↕ Mover
-        </span>
+        <div style="display:flex;align-items:center;gap:7px;">
+
+            <span class="rate-drag">
+                ↕ Mover
+            </span>
+
+            <button
+                class="rate-close"
+                type="button"
+                id="rateClose"
+                aria-label="Ocultar tasa"
+            >
+                ×
+            </button>
+
+        </div>
 
     </div>
 
@@ -2122,12 +2704,31 @@ select:focus-visible{
         </div>
 
         <div class="rate-source">
-            Referencia USDT/VES. La tasa se actualiza automáticamente.
+            Referencia USDT/VES.
+            <br>
+            Fuente:
+            <a
+                href="https://www.usdt.com.ve/"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                usdt.com.ve
+            </a>
         </div>
 
     </div>
 
 </div>
+
+
+<button
+    class="rate-restore"
+    id="rateRestore"
+    type="button"
+    aria-label="Mostrar tasa USDT"
+>
+    💵 USDT
+</button>
 
 
 <!-- =======================================================
@@ -2176,7 +2777,7 @@ select:focus-visible{
             </h2>
 
             <p>
-                Elige el servicio que necesitas.
+                Selecciona una categoría para ver sus productos.
             </p>
 
         </div>
@@ -2427,6 +3028,70 @@ select:focus-visible{
 
 
 <!-- =======================================================
+     MINI CATÁLOGO
+======================================================= -->
+
+<div
+    class="catalog-modal-overlay"
+    id="catalogModalOverlay"
+    aria-hidden="true"
+>
+
+    <div
+        class="catalog-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="catalogModalTitle"
+    >
+
+        <div class="catalog-modal-header">
+
+            <div class="catalog-modal-title">
+
+                <div
+                    class="catalog-modal-icon"
+                    id="catalogModalIcon"
+                >
+                    🎮
+                </div>
+
+                <div>
+
+                    <h2 id="catalogModalTitle">
+                        Catálogo
+                    </h2>
+
+                    <p id="catalogModalSubtitle">
+                        Selecciona el paquete que deseas.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <button
+                class="modal-close"
+                type="button"
+                id="catalogModalClose"
+                aria-label="Cerrar catálogo"
+            >
+                ✕
+            </button>
+
+        </div>
+
+
+        <div
+            class="catalog-modal-body"
+            id="catalogModalBody"
+        ></div>
+
+    </div>
+
+</div>
+
+
+<!-- =======================================================
      CARRITO
 ======================================================= -->
 
@@ -2563,32 +3228,22 @@ const SUPPORT_NUMBERS = Object.freeze({
 });
 
 
-/*
-   API pública USDT/VES.
-
-   La fuente entrega referencias de Binance y Bybit.
-   Se toma primero la mejor referencia disponible.
-
-   La API permite CORS y no requiere API key.
-*/
-
 const USDT_API =
     "https://www.usdt.com.ve/api/v1/rates/current";
 
 
+/*
+   La API tiene una caché pública de aproximadamente 60 segundos.
+   Actualizamos la página cada 60 segundos para obtener
+   el valor más reciente disponible.
+*/
+
 const RATE_REFRESH_MS =
-    5 * 60 * 1000;
+    60 * 1000;
 
 
 /* =========================================================
    PRODUCTOS
-=========================================================
-
-   price:null significa:
-   "Consultar precio".
-
-   Los productos con precio definido
-   conservan el precio indicado por el usuario.
 ========================================================= */
 
 const PRODUCTS = Object.freeze([
@@ -2601,6 +3256,7 @@ const PRODUCTS = Object.freeze([
         id:"ff-110",
         name:"Free Fire — 110💎",
         category:"juegos",
+        group:"Free Fire",
         type:"Free Fire",
         icon:"🔥",
         description:"Recarga de 110 diamantes.",
@@ -2611,6 +3267,7 @@ const PRODUCTS = Object.freeze([
         id:"ff-220",
         name:"Free Fire — 220💎",
         category:"juegos",
+        group:"Free Fire",
         type:"Free Fire",
         icon:"🔥",
         description:"Recarga de 220 diamantes.",
@@ -2621,6 +3278,7 @@ const PRODUCTS = Object.freeze([
         id:"ff-341",
         name:"Free Fire — 341💎",
         category:"juegos",
+        group:"Free Fire",
         type:"Free Fire",
         icon:"🔥",
         description:"Recarga de 341 diamantes.",
@@ -2631,6 +3289,7 @@ const PRODUCTS = Object.freeze([
         id:"ff-572",
         name:"Free Fire — 572💎",
         category:"juegos",
+        group:"Free Fire",
         type:"Free Fire",
         icon:"🔥",
         description:"Recarga de 572 diamantes.",
@@ -2641,6 +3300,7 @@ const PRODUCTS = Object.freeze([
         id:"ff-1166",
         name:"Free Fire — 1.166💎",
         category:"juegos",
+        group:"Free Fire",
         type:"Free Fire",
         icon:"🔥",
         description:"Recarga de 1.166 diamantes.",
@@ -2651,6 +3311,7 @@ const PRODUCTS = Object.freeze([
         id:"ff-2398",
         name:"Free Fire — 2.398💎",
         category:"juegos",
+        group:"Free Fire",
         type:"Free Fire",
         icon:"🔥",
         description:"Recarga de 2.398 diamantes.",
@@ -2661,6 +3322,7 @@ const PRODUCTS = Object.freeze([
         id:"ff-6160",
         name:"Free Fire — 6.160💎",
         category:"juegos",
+        group:"Free Fire",
         type:"Free Fire",
         icon:"🔥",
         description:"Recarga de 6.160 diamantes.",
@@ -2671,6 +3333,7 @@ const PRODUCTS = Object.freeze([
         id:"ff-12320",
         name:"Free Fire — 12.320💎",
         category:"juegos",
+        group:"Free Fire",
         type:"Free Fire",
         icon:"🔥",
         description:"Recarga de 12.320 diamantes.",
@@ -2681,9 +3344,10 @@ const PRODUCTS = Object.freeze([
         id:"ff-membresia",
         name:"Free Fire — Tarjeta (membresía)",
         category:"juegos",
+        group:"Free Fire",
         type:"Free Fire",
         icon:"💳",
-        description:"Membresía. Consulta disponibilidad y precio.",
+        description:"Membresía.",
         price:null
     },
 
@@ -2691,9 +3355,10 @@ const PRODUCTS = Object.freeze([
         id:"ff-basica",
         name:"Free Fire — Tarjeta básica",
         category:"juegos",
+        group:"Free Fire",
         type:"Free Fire",
         icon:"💳",
-        description:"Tarjeta básica. Consulta precio.",
+        description:"Tarjeta básica.",
         price:null
     },
 
@@ -2701,9 +3366,10 @@ const PRODUCTS = Object.freeze([
         id:"ff-semanal",
         name:"Free Fire — R. Semanal",
         category:"juegos",
+        group:"Free Fire",
         type:"Free Fire",
         icon:"📅",
-        description:"Recarga semanal. Consulta precio.",
+        description:"Recarga semanal.",
         price:null
     },
 
@@ -2711,9 +3377,10 @@ const PRODUCTS = Object.freeze([
         id:"ff-mensual",
         name:"Free Fire — T. Mensual",
         category:"juegos",
+        group:"Free Fire",
         type:"Free Fire",
         icon:"📅",
-        description:"Tarjeta mensual. Consulta precio.",
+        description:"Tarjeta mensual.",
         price:null
     },
 
@@ -2726,6 +3393,7 @@ const PRODUCTS = Object.freeze([
         id:"roblox-270",
         name:"Roblox — 270 Robux",
         category:"juegos",
+        group:"Roblox",
         type:"Roblox",
         icon:"🟥",
         description:"270 Robux.",
@@ -2736,6 +3404,7 @@ const PRODUCTS = Object.freeze([
         id:"roblox-500",
         name:"Roblox — 500 Robux",
         category:"juegos",
+        group:"Roblox",
         type:"Roblox",
         icon:"🟥",
         description:"500 Robux.",
@@ -2746,6 +3415,7 @@ const PRODUCTS = Object.freeze([
         id:"roblox-1000",
         name:"Roblox — 1.000 Robux",
         category:"juegos",
+        group:"Roblox",
         type:"Roblox",
         icon:"🟥",
         description:"1.000 Robux.",
@@ -2756,6 +3426,7 @@ const PRODUCTS = Object.freeze([
         id:"roblox-1500",
         name:"Roblox — 1.500 Robux",
         category:"juegos",
+        group:"Roblox",
         type:"Roblox",
         icon:"🟥",
         description:"1.500 Robux.",
@@ -2766,6 +3437,7 @@ const PRODUCTS = Object.freeze([
         id:"roblox-2000",
         name:"Roblox — 2.000 Robux",
         category:"juegos",
+        group:"Roblox",
         type:"Roblox",
         icon:"🟥",
         description:"2.000 Robux.",
@@ -2776,6 +3448,7 @@ const PRODUCTS = Object.freeze([
         id:"roblox-3625",
         name:"Roblox — 3.625 Robux",
         category:"juegos",
+        group:"Roblox",
         type:"Roblox",
         icon:"🟥",
         description:"3.625 Robux.",
@@ -2786,6 +3459,7 @@ const PRODUCTS = Object.freeze([
         id:"roblox-5250",
         name:"Roblox — 5.250 Robux",
         category:"juegos",
+        group:"Roblox",
         type:"Roblox",
         icon:"🟥",
         description:"5.250 Robux.",
@@ -2796,6 +3470,7 @@ const PRODUCTS = Object.freeze([
         id:"roblox-11000",
         name:"Roblox — 11.000 Robux",
         category:"juegos",
+        group:"Roblox",
         type:"Roblox",
         icon:"🟥",
         description:"11.000 Robux.",
@@ -2811,6 +3486,7 @@ const PRODUCTS = Object.freeze([
         id:"pubg-60",
         name:"PUBG Mobile — 60 UC",
         category:"juegos",
+        group:"PUBG Mobile",
         type:"PUBG Mobile",
         icon:"🎯",
         description:"60 UC.",
@@ -2821,6 +3497,7 @@ const PRODUCTS = Object.freeze([
         id:"pubg-325",
         name:"PUBG Mobile — 325 UC",
         category:"juegos",
+        group:"PUBG Mobile",
         type:"PUBG Mobile",
         icon:"🎯",
         description:"325 UC.",
@@ -2831,6 +3508,7 @@ const PRODUCTS = Object.freeze([
         id:"pubg-660",
         name:"PUBG Mobile — 660 UC",
         category:"juegos",
+        group:"PUBG Mobile",
         type:"PUBG Mobile",
         icon:"🎯",
         description:"660 UC.",
@@ -2841,6 +3519,7 @@ const PRODUCTS = Object.freeze([
         id:"pubg-1800",
         name:"PUBG Mobile — 1.800 UC",
         category:"juegos",
+        group:"PUBG Mobile",
         type:"PUBG Mobile",
         icon:"🎯",
         description:"1.800 UC.",
@@ -2851,6 +3530,7 @@ const PRODUCTS = Object.freeze([
         id:"pubg-3850",
         name:"PUBG Mobile — 3.850 UC",
         category:"juegos",
+        group:"PUBG Mobile",
         type:"PUBG Mobile",
         icon:"🎯",
         description:"3.850 UC.",
@@ -2861,6 +3541,7 @@ const PRODUCTS = Object.freeze([
         id:"pubg-8100",
         name:"PUBG Mobile — 8.100 UC",
         category:"juegos",
+        group:"PUBG Mobile",
         type:"PUBG Mobile",
         icon:"🎯",
         description:"8.100 UC.",
@@ -2876,6 +3557,7 @@ const PRODUCTS = Object.freeze([
         id:"delta-18",
         name:"Delta Force — 18 Delta Coins",
         category:"juegos",
+        group:"Delta Force",
         type:"Delta Force",
         icon:"🪙",
         description:"18 Delta Coins.",
@@ -2886,6 +3568,7 @@ const PRODUCTS = Object.freeze([
         id:"delta-30",
         name:"Delta Force — 30 Delta Coins",
         category:"juegos",
+        group:"Delta Force",
         type:"Delta Force",
         icon:"🪙",
         description:"30 Delta Coins.",
@@ -2896,6 +3579,7 @@ const PRODUCTS = Object.freeze([
         id:"delta-60",
         name:"Delta Force — 60 Delta Coins",
         category:"juegos",
+        group:"Delta Force",
         type:"Delta Force",
         icon:"🪙",
         description:"60 Delta Coins.",
@@ -2906,6 +3590,7 @@ const PRODUCTS = Object.freeze([
         id:"delta-320",
         name:"Delta Force — 320 Delta Coins",
         category:"juegos",
+        group:"Delta Force",
         type:"Delta Force",
         icon:"🪙",
         description:"320 Delta Coins.",
@@ -2916,6 +3601,7 @@ const PRODUCTS = Object.freeze([
         id:"delta-460",
         name:"Delta Force — 460 Delta Coins",
         category:"juegos",
+        group:"Delta Force",
         type:"Delta Force",
         icon:"🪙",
         description:"460 Delta Coins.",
@@ -2926,6 +3612,7 @@ const PRODUCTS = Object.freeze([
         id:"delta-750",
         name:"Delta Force — 750 Delta Coins",
         category:"juegos",
+        group:"Delta Force",
         type:"Delta Force",
         icon:"🪙",
         description:"750 Delta Coins.",
@@ -2936,6 +3623,7 @@ const PRODUCTS = Object.freeze([
         id:"delta-1480",
         name:"Delta Force — 1.480 Delta Coins",
         category:"juegos",
+        group:"Delta Force",
         type:"Delta Force",
         icon:"🪙",
         description:"1.480 Delta Coins.",
@@ -2946,6 +3634,7 @@ const PRODUCTS = Object.freeze([
         id:"delta-1980",
         name:"Delta Force — 1.980 Delta Coins",
         category:"juegos",
+        group:"Delta Force",
         type:"Delta Force",
         icon:"🪙",
         description:"1.980 Delta Coins.",
@@ -2956,6 +3645,7 @@ const PRODUCTS = Object.freeze([
         id:"delta-3950",
         name:"Delta Force — 3.950 Delta Coins",
         category:"juegos",
+        group:"Delta Force",
         type:"Delta Force",
         icon:"🪙",
         description:"3.950 Delta Coins.",
@@ -2966,6 +3656,7 @@ const PRODUCTS = Object.freeze([
         id:"delta-8100",
         name:"Delta Force — 8.100 Delta Coins",
         category:"juegos",
+        group:"Delta Force",
         type:"Delta Force",
         icon:"🪙",
         description:"8.100 Delta Coins.",
@@ -2981,6 +3672,7 @@ const PRODUCTS = Object.freeze([
         id:"arena-66",
         name:"Arena Breakout — 66 Bonds",
         category:"juegos",
+        group:"Arena Breakout",
         type:"Arena Breakout",
         icon:"💠",
         description:"66 Bonds.",
@@ -2991,6 +3683,7 @@ const PRODUCTS = Object.freeze([
         id:"arena-335",
         name:"Arena Breakout — 335 Bonds",
         category:"juegos",
+        group:"Arena Breakout",
         type:"Arena Breakout",
         icon:"💠",
         description:"335 Bonds.",
@@ -3001,6 +3694,7 @@ const PRODUCTS = Object.freeze([
         id:"arena-675",
         name:"Arena Breakout — 675 Bonds",
         category:"juegos",
+        group:"Arena Breakout",
         type:"Arena Breakout",
         icon:"💠",
         description:"675 Bonds.",
@@ -3011,6 +3705,7 @@ const PRODUCTS = Object.freeze([
         id:"arena-1690",
         name:"Arena Breakout — 1.690 Bonds",
         category:"juegos",
+        group:"Arena Breakout",
         type:"Arena Breakout",
         icon:"💠",
         description:"1.690 Bonds.",
@@ -3021,6 +3716,7 @@ const PRODUCTS = Object.freeze([
         id:"arena-3400",
         name:"Arena Breakout — 3.400 Bonds",
         category:"juegos",
+        group:"Arena Breakout",
         type:"Arena Breakout",
         icon:"💠",
         description:"3.400 Bonds.",
@@ -3031,6 +3727,7 @@ const PRODUCTS = Object.freeze([
         id:"arena-6820",
         name:"Arena Breakout — 6.820 Bonds",
         category:"juegos",
+        group:"Arena Breakout",
         type:"Arena Breakout",
         icon:"💠",
         description:"6.820 Bonds.",
@@ -3044,8 +3741,9 @@ const PRODUCTS = Object.freeze([
 
     {
         id:"blood-100",
-        name:"Blood Strike — 100 + 5",
+        name:"Blood Strike — 100 + 5 Gold",
         category:"juegos",
+        group:"Blood Strike",
         type:"Blood Strike",
         icon:"🔫",
         description:"100 + 5 Gold.",
@@ -3056,6 +3754,7 @@ const PRODUCTS = Object.freeze([
         id:"blood-300",
         name:"Blood Strike — 300 + 20 Gold",
         category:"juegos",
+        group:"Blood Strike",
         type:"Blood Strike",
         icon:"🔫",
         description:"300 + 20 Gold.",
@@ -3066,6 +3765,7 @@ const PRODUCTS = Object.freeze([
         id:"blood-500",
         name:"Blood Strike — 500 + 40 Gold",
         category:"juegos",
+        group:"Blood Strike",
         type:"Blood Strike",
         icon:"🔫",
         description:"500 + 40 Gold.",
@@ -3076,6 +3776,7 @@ const PRODUCTS = Object.freeze([
         id:"blood-1000",
         name:"Blood Strike — 1.000 + 100 Gold",
         category:"juegos",
+        group:"Blood Strike",
         type:"Blood Strike",
         icon:"🔫",
         description:"1.000 + 100 Gold.",
@@ -3086,6 +3787,7 @@ const PRODUCTS = Object.freeze([
         id:"blood-2000",
         name:"Blood Strike — 2.000 + 260 Gold",
         category:"juegos",
+        group:"Blood Strike",
         type:"Blood Strike",
         icon:"🔫",
         description:"2.000 + 260 Gold.",
@@ -3096,6 +3798,7 @@ const PRODUCTS = Object.freeze([
         id:"blood-5000",
         name:"Blood Strike — 5.000 + 800 Gold",
         category:"juegos",
+        group:"Blood Strike",
         type:"Blood Strike",
         icon:"🔫",
         description:"5.000 + 800 Gold.",
@@ -3111,6 +3814,7 @@ const PRODUCTS = Object.freeze([
         id:"cod-63",
         name:"Call of Duty — 63 CP",
         category:"juegos",
+        group:"Call of Duty",
         type:"Call of Duty",
         icon:"🎖️",
         description:"63 CP.",
@@ -3121,6 +3825,7 @@ const PRODUCTS = Object.freeze([
         id:"cod-128",
         name:"Call of Duty — 128 CP",
         category:"juegos",
+        group:"Call of Duty",
         type:"Call of Duty",
         icon:"🎖️",
         description:"128 CP.",
@@ -3131,6 +3836,7 @@ const PRODUCTS = Object.freeze([
         id:"cod-321",
         name:"Call of Duty — 321 CP",
         category:"juegos",
+        group:"Call of Duty",
         type:"Call of Duty",
         icon:"🎖️",
         description:"321 CP.",
@@ -3141,6 +3847,7 @@ const PRODUCTS = Object.freeze([
         id:"cod-645",
         name:"Call of Duty — 645 CP",
         category:"juegos",
+        group:"Call of Duty",
         type:"Call of Duty",
         icon:"🎖️",
         description:"645 CP.",
@@ -3151,6 +3858,7 @@ const PRODUCTS = Object.freeze([
         id:"cod-1373",
         name:"Call of Duty — 1.373 CP",
         category:"juegos",
+        group:"Call of Duty",
         type:"Call of Duty",
         icon:"🎖️",
         description:"1.373 CP.",
@@ -3161,6 +3869,7 @@ const PRODUCTS = Object.freeze([
         id:"cod-2060",
         name:"Call of Duty — 2.060 CP",
         category:"juegos",
+        group:"Call of Duty",
         type:"Call of Duty",
         icon:"🎖️",
         description:"2.060 CP.",
@@ -3171,6 +3880,7 @@ const PRODUCTS = Object.freeze([
         id:"cod-3564",
         name:"Call of Duty — 3.564 CP",
         category:"juegos",
+        group:"Call of Duty",
         type:"Call of Duty",
         icon:"🎖️",
         description:"3.564 CP.",
@@ -3181,6 +3891,7 @@ const PRODUCTS = Object.freeze([
         id:"cod-7656",
         name:"Call of Duty — 7.656 CP",
         category:"juegos",
+        group:"Call of Duty",
         type:"Call of Duty",
         icon:"🎖️",
         description:"7.656 CP.",
@@ -3189,78 +3900,45 @@ const PRODUCTS = Object.freeze([
 
 
     /* =====================================================
-       GIFT CARDS
+       MINECRAFT
     ===================================================== */
 
     {
-        id:"gift-apple",
-        name:"Apple Gift Card",
-        category:"giftcards",
-        type:"Gift Card",
-        icon:"🍎",
-        description:"Consulta disponibilidad y precio por WhatsApp.",
-        price:null,
-        consultationOnly:true
+        id:"minecraft-java-bedrock",
+        name:"Minecraft: Java and Bedrock Edition PC Windows Account",
+        category:"juegos",
+        group:"Minecraft",
+        type:"Minecraft",
+        icon:"⛏️",
+        description:"Cuenta PC Windows.",
+        price:18
     },
 
     {
-        id:"gift-google",
-        name:"Google Play USA",
-        category:"giftcards",
-        type:"Gift Card",
-        icon:"▶️",
-        description:"Gift Card Google Play USA. Consulta.",
-        price:null,
-        consultationOnly:true
+        id:"minecraft-mojang",
+        name:"Minecraft: Java and Bedrock Edition PC Mojang Account",
+        category:"juegos",
+        group:"Minecraft",
+        type:"Minecraft",
+        icon:"⛏️",
+        description:"Cuenta Mojang para PC.",
+        price:18.2
     },
 
     {
-        id:"gift-steam",
-        name:"Steam Wallet",
-        category:"giftcards",
-        type:"Gift Card",
-        icon:"🎮",
-        description:"Steam Wallet. Consulta disponibilidad.",
-        price:null,
-        consultationOnly:true
-    },
-
-    {
-        id:"gift-playstation",
-        name:"PlayStation Store",
-        category:"giftcards",
-        type:"Gift Card",
-        icon:"🎮",
-        description:"PlayStation Store. Consulta disponibilidad.",
-        price:null,
-        consultationOnly:true
-    },
-
-    {
-        id:"gift-xbox",
-        name:"Xbox Card",
-        category:"giftcards",
-        type:"Gift Card",
-        icon:"🟢",
-        description:"Xbox Card. Consulta disponibilidad.",
-        price:null,
-        consultationOnly:true
-    },
-
-    {
-        id:"gift-discord",
-        name:"Discord USA",
-        category:"giftcards",
-        type:"Gift Card",
-        icon:"💬",
-        description:"Discord USA. Consulta disponibilidad.",
-        price:null,
-        consultationOnly:true
+        id:"minecraft-xbox",
+        name:"Minecraft Xbox One / Xbox Series X|S Account",
+        category:"juegos",
+        group:"Minecraft",
+        type:"Minecraft",
+        icon:"⛏️",
+        description:"Cuenta Xbox One / Xbox Series X|S.",
+        price:11
     },
 
 
     /* =====================================================
-       TV / STREAMING
+       NETFLIX
     ===================================================== */
 
     {
@@ -3275,7 +3953,7 @@ const PRODUCTS = Object.freeze([
 
     {
         id:"netflix-2",
-        name:"Netflix — 2 Duo",
+        name:"Netflix — 2 pantallas Duo",
         category:"servicios",
         type:"Netflix",
         icon:"📺",
@@ -3285,13 +3963,18 @@ const PRODUCTS = Object.freeze([
 
     {
         id:"netflix-4",
-        name:"Netflix — 4 Familiar",
+        name:"Netflix — 4 pantallas Familiar",
         category:"servicios",
         type:"Netflix",
         icon:"📺",
         description:"4 pantallas.",
         price:12
     },
+
+
+    /* =====================================================
+       DISNEY+
+    ===================================================== */
 
     {
         id:"disney-standard",
@@ -3300,9 +3983,14 @@ const PRODUCTS = Object.freeze([
         type:"Disney+",
         icon:"🎬",
         description:
-            "Disney • Pixar • Marvel • Star Wars • National Geographic • Hulu*. Full HD 1080p • 2 pantallas • Audio 5.1 • Descargas*.",
+            "Full HD 1080p • 2 pantallas • Audio 5.1 • Descargas.",
         price:17.5
     },
+
+
+    /* =====================================================
+       HBO MAX
+    ===================================================== */
 
     {
         id:"hbo-basic",
@@ -3333,7 +4021,7 @@ const PRODUCTS = Object.freeze([
         type:"HBO Max",
         icon:"🎬",
         description:
-            "4 dispositivos. 4K UHD y Dolby Atmos a disponibilidad. 100 descargas sujeto a límites.",
+            "4 dispositivos. 4K UHD y Dolby Atmos según disponibilidad. 100 descargas.",
         price:22.5
     },
 
@@ -3344,9 +4032,14 @@ const PRODUCTS = Object.freeze([
         type:"HBO Max + DAZN",
         icon:"🏆",
         description:
-            "4 dispositivos a la vez. Deportes solo en 2. HBO Max, Eurosport, DAZN 1-4, DAZN F1 y DAZN LALIGA.",
+            "4 dispositivos. Deportes solo en 2. HBO Max, Eurosport, DAZN 1-4, DAZN F1 y DAZN LaLiga.",
         price:65
     },
+
+
+    /* =====================================================
+       PRIME VIDEO
+    ===================================================== */
 
     {
         id:"prime",
@@ -3368,13 +4061,18 @@ const PRODUCTS = Object.freeze([
         price:20
     },
 
+
+    /* =====================================================
+       YOUTUBE
+    ===================================================== */
+
     {
-        id:"youtube-life",
-        name:"YouTube Premium Life",
+        id:"youtube-lite",
+        name:"YouTube Premium Lite",
         category:"servicios",
         type:"YouTube Premium",
         icon:"▶️",
-        description:"Cancela la mayoría de anuncios.",
+        description:"Plan Premium Lite.",
         price:7.5
     },
 
@@ -3388,6 +4086,11 @@ const PRODUCTS = Object.freeze([
         price:11.99
     },
 
+
+    /* =====================================================
+       PARAMOUNT+
+    ===================================================== */
+
     {
         id:"paramount",
         name:"Paramount+ Mensual",
@@ -3400,41 +4103,6 @@ const PRODUCTS = Object.freeze([
 
 
     /* =====================================================
-       MINECRAFT
-    ===================================================== */
-
-    {
-        id:"minecraft-java-bedrock",
-        name:"Minecraft: Java and Bedrock Edition PC Windows Account",
-        category:"juegos",
-        type:"Minecraft",
-        icon:"⛏️",
-        description:"Cuenta PC Windows.",
-        price:18
-    },
-
-    {
-        id:"minecraft-mojang",
-        name:"Minecraft: Java and Bedrock Edition for PC Mojang Account",
-        category:"juegos",
-        type:"Minecraft",
-        icon:"⛏️",
-        description:"Cuenta Mojang para PC.",
-        price:18.2
-    },
-
-    {
-        id:"minecraft-xbox",
-        name:"Minecraft Xbox One / Xbox Series X|S Account",
-        category:"juegos",
-        type:"Minecraft",
-        icon:"⛏️",
-        description:"Cuenta para Xbox One / Xbox Series X|S.",
-        price:11
-    },
-
-
-    /* =====================================================
        TIKTOK
     ===================================================== */
 
@@ -3442,6 +4110,7 @@ const PRODUCTS = Object.freeze([
         id:"tiktok-20",
         name:"TikTok — 20 Coins",
         category:"servicios",
+        group:"TikTok",
         type:"TikTok",
         icon:"🎵",
         description:"20 Coins.",
@@ -3452,6 +4121,7 @@ const PRODUCTS = Object.freeze([
         id:"tiktok-50",
         name:"TikTok — 50 Coins",
         category:"servicios",
+        group:"TikTok",
         type:"TikTok",
         icon:"🎵",
         description:"50 Coins.",
@@ -3462,6 +4132,7 @@ const PRODUCTS = Object.freeze([
         id:"tiktok-100",
         name:"TikTok — 100 Coins",
         category:"servicios",
+        group:"TikTok",
         type:"TikTok",
         icon:"🎵",
         description:"100 Coins.",
@@ -3472,6 +4143,7 @@ const PRODUCTS = Object.freeze([
         id:"tiktok-150",
         name:"TikTok — 150 Coins",
         category:"servicios",
+        group:"TikTok",
         type:"TikTok",
         icon:"🎵",
         description:"150 Coins.",
@@ -3482,6 +4154,7 @@ const PRODUCTS = Object.freeze([
         id:"tiktok-300",
         name:"TikTok — 300 Coins",
         category:"servicios",
+        group:"TikTok",
         type:"TikTok",
         icon:"🎵",
         description:"300 Coins.",
@@ -3492,6 +4165,7 @@ const PRODUCTS = Object.freeze([
         id:"tiktok-500",
         name:"TikTok — 500 Coins",
         category:"servicios",
+        group:"TikTok",
         type:"TikTok",
         icon:"🎵",
         description:"500 Coins.",
@@ -3502,6 +4176,7 @@ const PRODUCTS = Object.freeze([
         id:"tiktok-1000",
         name:"TikTok — 1.000 Coins",
         category:"servicios",
+        group:"TikTok",
         type:"TikTok",
         icon:"🎵",
         description:"1.000 Coins.",
@@ -3512,10 +4187,167 @@ const PRODUCTS = Object.freeze([
         id:"tiktok-custom",
         name:"TikTok — Monto personalizado",
         category:"servicios",
+        group:"TikTok",
         type:"TikTok",
         icon:"🎵",
         description:"Indica la cantidad de Coins que deseas.",
         price:null
+    },
+
+
+    /* =====================================================
+       GIFT CARDS
+    ===================================================== */
+
+    {
+        id:"gift-apple",
+        name:"Apple Gift Card",
+        category:"giftcards",
+        group:"Gift Cards",
+        type:"Gift Card",
+        icon:"🍎",
+        description:"Consulta disponibilidad y precio.",
+        price:null,
+        consultationOnly:true
+    },
+
+    {
+        id:"gift-google",
+        name:"Google Play USA",
+        category:"giftcards",
+        group:"Gift Cards",
+        type:"Gift Card",
+        icon:"▶️",
+        description:"Consulta disponibilidad y precio.",
+        price:null,
+        consultationOnly:true
+    },
+
+    {
+        id:"gift-steam",
+        name:"Steam Wallet",
+        category:"giftcards",
+        group:"Gift Cards",
+        type:"Gift Card",
+        icon:"🎮",
+        description:"Consulta disponibilidad y precio.",
+        price:null,
+        consultationOnly:true
+    },
+
+    {
+        id:"gift-playstation",
+        name:"PlayStation Store",
+        category:"giftcards",
+        group:"Gift Cards",
+        type:"Gift Card",
+        icon:"🎮",
+        description:"Consulta disponibilidad y precio.",
+        price:null,
+        consultationOnly:true
+    },
+
+    {
+        id:"gift-xbox",
+        name:"Xbox Card",
+        category:"giftcards",
+        group:"Gift Cards",
+        type:"Gift Card",
+        icon:"🟢",
+        description:"Consulta disponibilidad y precio.",
+        price:null,
+        consultationOnly:true
+    },
+
+    {
+        id:"gift-discord",
+        name:"Discord USA",
+        category:"giftcards",
+        group:"Gift Cards",
+        type:"Gift Card",
+        icon:"💬",
+        description:"Consulta disponibilidad y precio.",
+        price:null,
+        consultationOnly:true
+    }
+
+]);
+
+
+/* =========================================================
+   GRUPOS
+========================================================= */
+
+const GROUPS = Object.freeze([
+
+    {
+        key:"Free Fire",
+        category:"juegos",
+        icon:"🔥",
+        description:"Diamantes y membresías de Free Fire."
+    },
+
+    {
+        key:"Roblox",
+        category:"juegos",
+        icon:"🟥",
+        description:"Paquetes de Robux para Roblox."
+    },
+
+    {
+        key:"PUBG Mobile",
+        category:"juegos",
+        icon:"🎯",
+        description:"Paquetes de UC para PUBG Mobile."
+    },
+
+    {
+        key:"Delta Force",
+        category:"juegos",
+        icon:"🪙",
+        description:"Paquetes de Delta Coins."
+    },
+
+    {
+        key:"Arena Breakout",
+        category:"juegos",
+        icon:"💠",
+        description:"Paquetes de Bonds."
+    },
+
+    {
+        key:"Blood Strike",
+        category:"juegos",
+        icon:"🔫",
+        description:"Paquetes de Gold."
+    },
+
+    {
+        key:"Call of Duty",
+        category:"juegos",
+        icon:"🎖️",
+        description:"Paquetes de CP."
+    },
+
+    {
+        key:"Minecraft",
+        category:"juegos",
+        icon:"⛏️",
+        description:"Ediciones y cuentas de Minecraft."
+    },
+
+    {
+        key:"TikTok",
+        category:"servicios",
+        icon:"🎵",
+        description:"Coins de TikTok y monto personalizado."
+    },
+
+    {
+        key:"Gift Cards",
+        category:"giftcards",
+        icon:"🎁",
+        description:"Consulta las Gift Cards disponibles."
     }
 
 ]);
@@ -3577,6 +4409,30 @@ const rateDragHandle =
 const rateRefresh =
     document.getElementById("rateRefresh");
 
+const rateClose =
+    document.getElementById("rateClose");
+
+const rateRestore =
+    document.getElementById("rateRestore");
+
+const catalogModalOverlay =
+    document.getElementById("catalogModalOverlay");
+
+const catalogModalClose =
+    document.getElementById("catalogModalClose");
+
+const catalogModalBody =
+    document.getElementById("catalogModalBody");
+
+const catalogModalTitle =
+    document.getElementById("catalogModalTitle");
+
+const catalogModalSubtitle =
+    document.getElementById("catalogModalSubtitle");
+
+const catalogModalIcon =
+    document.getElementById("catalogModalIcon");
+
 
 /* =========================================================
    UTILIDADES
@@ -3584,7 +4440,8 @@ const rateRefresh =
 
 function safeNumber(value,fallback=0){
 
-    const number = Number(value);
+    const number =
+        Number(value);
 
     if(!Number.isFinite(number)){
         return fallback;
@@ -3657,6 +4514,20 @@ function formatVES(value){
 }
 
 
+function getVESPrice(price){
+
+    if(
+        currentUSDT === null ||
+        !Number.isFinite(Number(price))
+    ){
+        return null;
+    }
+
+    return Number(price) * currentUSDT;
+
+}
+
+
 /* =========================================================
    LOCAL STORAGE
 ========================================================= */
@@ -3722,7 +4593,8 @@ function loadCart(){
                 .filter(item =>
                     item &&
                     typeof item.id === "string" &&
-                    getProductById(item.id)
+                    getProductById(item.id) &&
+                    getProductById(item.id).price !== null
                 )
                 .map(item => ({
                     id:item.id,
@@ -3785,6 +4657,13 @@ function extractUSDT(data){
     }
 
 
+    const best =
+        safeNumber(
+            data.data?.best?.buy_rate,
+            NaN
+        );
+
+
     const binance =
         safeNumber(
             data.data?.binance?.buy_rate,
@@ -3799,27 +4678,26 @@ function extractUSDT(data){
         );
 
 
-    const best =
-        safeNumber(
-            data.data?.best?.buy_rate,
-            NaN
-        );
-
-
-    if(Number.isFinite(best) && best > 0){
-
+    if(
+        Number.isFinite(best) &&
+        best > 0
+    ){
         return best;
     }
 
 
-    if(Number.isFinite(binance) && binance > 0){
-
+    if(
+        Number.isFinite(binance) &&
+        binance > 0
+    ){
         return binance;
     }
 
 
-    if(Number.isFinite(bybit) && bybit > 0){
-
+    if(
+        Number.isFinite(bybit) &&
+        bybit > 0
+    ){
         return bybit;
     }
 
@@ -3829,12 +4707,76 @@ function extractUSDT(data){
 }
 
 
+function renderUSDT(){
+
+    if(
+        currentUSDT === null ||
+        !Number.isFinite(currentUSDT)
+    ){
+
+        return;
+    }
+
+
+    usdtRate.textContent = "";
+
+
+    const one =
+        document.createElement("span");
+
+    one.textContent =
+        "1 USDT";
+
+
+    const equals =
+        document.createTextNode(
+            " = "
+        );
+
+
+    const value =
+        document.createElement("span");
+
+    value.textContent =
+        `${formatVES(currentUSDT)} Bs.`;
+
+
+    usdtRate.append(
+        one,
+        equals,
+        value
+    );
+
+
+    renderProducts();
+
+    renderCart();
+
+}
+
+
 async function updateUSDT(){
 
-    usdtRate.textContent =
-        "Actualizando...";
+    if(currentUSDT === null){
+
+        usdtRate.textContent =
+            "Consultando...";
+
+    }
+
 
     try{
+
+        const controller =
+            new AbortController();
+
+
+        const timeout =
+            setTimeout(
+                () => controller.abort(),
+                8000
+            );
+
 
         const response =
             await fetch(
@@ -3844,9 +4786,13 @@ async function updateUSDT(){
                     cache:"no-store",
                     headers:{
                         "Accept":"application/json"
-                    }
+                    },
+                    signal:controller.signal
                 }
             );
+
+
+        clearTimeout(timeout);
 
 
         if(!response.ok){
@@ -3878,33 +4824,11 @@ async function updateUSDT(){
         }
 
 
-        currentUSDT = rate;
+        currentUSDT =
+            rate;
 
 
-        usdtRate.innerHTML = "";
-
-        const one =
-            document.createElement("span");
-
-        one.textContent =
-            "1 USDT";
-
-        const equals =
-            document.createTextNode(
-                " = "
-            );
-
-        const value =
-            document.createElement("span");
-
-        value.textContent =
-            `${formatVES(rate)} Bs.`;
-
-        usdtRate.append(
-            one,
-            equals,
-            value
-        );
+        renderUSDT();
 
 
         const captured =
@@ -3916,16 +4840,23 @@ async function updateUSDT(){
             const date =
                 new Date(captured);
 
-            if(!Number.isNaN(date.getTime())){
+
+            if(
+                !Number.isNaN(
+                    date.getTime()
+                )
+            ){
 
                 rateUpdated.textContent =
-                    `Actualizado ${date.toLocaleTimeString(
-                        "es-VE",
-                        {
-                            hour:"2-digit",
-                            minute:"2-digit"
-                        }
-                    )}`;
+                    `Actualizado ${
+                        date.toLocaleTimeString(
+                            "es-VE",
+                            {
+                                hour:"2-digit",
+                                minute:"2-digit"
+                            }
+                        )
+                    }`;
 
             }else{
 
@@ -3941,11 +4872,6 @@ async function updateUSDT(){
 
         }
 
-
-        /*
-           Guardamos únicamente la última tasa válida
-           para poder mostrarla si la API falla.
-        */
 
         try{
 
@@ -3998,10 +4924,8 @@ async function updateUSDT(){
                         savedRate;
 
 
-                    usdtRate.textContent =
-                        `1 USDT = ${formatVES(
-                            savedRate
-                        )} Bs.`;
+                    renderUSDT();
+
 
                     rateUpdated.textContent =
                         "Última tasa disponible";
@@ -4014,8 +4938,13 @@ async function updateUSDT(){
         }catch(_){}
 
 
-        usdtRate.textContent =
-            "Tasa no disponible";
+        if(currentUSDT === null){
+
+            usdtRate.textContent =
+                "Tasa no disponible";
+
+        }
+
 
         rateUpdated.textContent =
             "Reintenta en unos minutos";
@@ -4023,6 +4952,42 @@ async function updateUSDT(){
     }
 
 }
+
+
+/* =========================================================
+   OCULTAR / MOSTRAR TASA
+========================================================= */
+
+rateClose.addEventListener(
+    "click",
+    event => {
+
+        event.stopPropagation();
+
+        rateWidget.style.display =
+            "none";
+
+        rateRestore.classList.add(
+            "show"
+        );
+
+    }
+);
+
+
+rateRestore.addEventListener(
+    "click",
+    () => {
+
+        rateWidget.style.display =
+            "block";
+
+        rateRestore.classList.remove(
+            "show"
+        );
+
+    }
+);
 
 
 /* =========================================================
@@ -4093,7 +5058,7 @@ async function updateUSDT(){
                 8,
                 Math.min(
                     left,
-                    maxLeft
+                    Math.max(8,maxLeft)
                 )
             );
 
@@ -4103,7 +5068,7 @@ async function updateUSDT(){
                 8,
                 Math.min(
                     top,
-                    maxTop
+                    Math.max(8,maxTop)
                 )
             );
 
@@ -4137,6 +5102,10 @@ async function updateUSDT(){
     rateDragHandle.addEventListener(
         "pointerdown",
         event => {
+
+            if(event.target === rateClose){
+                return;
+            }
 
             event.preventDefault();
 
@@ -4177,6 +5146,57 @@ async function updateUSDT(){
         stop
     );
 
+
+    window.addEventListener(
+        "resize",
+        () => {
+
+            if(
+                !rateWidget.style.left ||
+                !rateWidget.style.top
+            ){
+                return;
+            }
+
+
+            const rect =
+                rateWidget.getBoundingClientRect();
+
+
+            const maxLeft =
+                window.innerWidth -
+                rateWidget.offsetWidth -
+                8;
+
+
+            const maxTop =
+                window.innerHeight -
+                rateWidget.offsetHeight -
+                8;
+
+
+            rateWidget.style.left =
+                `${Math.max(
+                    8,
+                    Math.min(
+                        rect.left,
+                        Math.max(8,maxLeft)
+                    )
+                )}px`;
+
+
+            rateWidget.style.top =
+                `${Math.max(
+                    8,
+                    Math.min(
+                        rect.top,
+                        Math.max(8,maxTop)
+                    )
+                )}px`;
+
+        }
+    );
+
 })();
 
 
@@ -4187,7 +5207,51 @@ rateRefresh.addEventListener(
 
 
 /* =========================================================
-   PRODUCTOS
+   OBTENER GRUPOS
+========================================================= */
+
+function getGroupProducts(groupName){
+
+    return PRODUCTS.filter(
+        product =>
+            product.group === groupName
+    );
+
+}
+
+
+function groupMatchesSearch(group,products){
+
+    if(!searchTerm){
+        return true;
+    }
+
+
+    const groupText =
+        (
+            group.key +
+            " " +
+            group.description +
+            " " +
+            products
+                .map(product =>
+                    product.name +
+                    " " +
+                    product.description
+                )
+                .join(" ")
+        ).toLowerCase();
+
+
+    return groupText.includes(
+        searchTerm
+    );
+
+}
+
+
+/* =========================================================
+   RENDER CATÁLOGO
 ========================================================= */
 
 function renderProducts(){
@@ -4195,8 +5259,54 @@ function renderProducts(){
     productsContainer.textContent = "";
 
 
-    const filtered =
+    /*
+       Primero mostramos los grupos.
+       Así no aparecen 10 tarjetas de Free Fire,
+       8 de Roblox, etc. en la página principal.
+    */
+
+    const visibleGroups =
+        GROUPS.filter(group => {
+
+            if(
+                currentFilter !== "todos" &&
+                group.category !== currentFilter
+            ){
+                return false;
+            }
+
+
+            const groupProducts =
+                getGroupProducts(
+                    group.key
+                );
+
+
+            return groupMatchesSearch(
+                group,
+                groupProducts
+            );
+
+        });
+
+
+    /*
+       Productos individuales:
+       Netflix, Disney+, HBO Max,
+       Prime Video, YouTube, Paramount+.
+    */
+
+    const individualProducts =
         PRODUCTS.filter(product => {
+
+            const isGrouped =
+                Boolean(product.group);
+
+
+            if(isGrouped){
+                return false;
+            }
+
 
             const matchesFilter =
                 currentFilter === "todos" ||
@@ -4224,16 +5334,22 @@ function renderProducts(){
         });
 
 
-    if(filtered.length === 0){
+    if(
+        visibleGroups.length === 0 &&
+        individualProducts.length === 0
+    ){
 
         const empty =
             document.createElement("div");
 
-        empty.className = "empty";
+
+        empty.className =
+            "empty";
 
 
         const strong =
             document.createElement("strong");
+
 
         strong.textContent =
             "No encontramos ese producto";
@@ -4241,6 +5357,7 @@ function renderProducts(){
 
         const span =
             document.createElement("span");
+
 
         span.textContent =
             "Prueba con otro nombre o categoría.";
@@ -4261,11 +5378,167 @@ function renderProducts(){
     }
 
 
-    filtered.forEach(
-        (product,index) => {
+    let index = 0;
+
+
+    /* =====================================================
+       TARJETAS AGRUPADAS
+    ===================================================== */
+
+    visibleGroups.forEach(
+        group => {
+
+            const items =
+                getGroupProducts(
+                    group.key
+                );
+
 
             const card =
                 document.createElement("article");
+
+
+            card.className =
+                "group-card";
+
+
+            card.style.animationDelay =
+                `${Math.min(
+                    index * 35,
+                    300
+                )}ms`;
+
+
+            index++;
+
+
+            const top =
+                document.createElement("div");
+
+
+            top.className =
+                "group-top";
+
+
+            top.textContent =
+                group.icon;
+
+
+            const count =
+                document.createElement("div");
+
+
+            count.className =
+                "group-count";
+
+
+            count.textContent =
+                `${items.length} opciones`;
+
+
+            top.appendChild(
+                count
+            );
+
+
+            const body =
+                document.createElement("div");
+
+
+            body.className =
+                "group-body";
+
+
+            const category =
+                document.createElement("div");
+
+
+            category.className =
+                "group-category";
+
+
+            category.textContent =
+                group.category === "giftcards"
+                    ? "Gift Cards"
+                    : group.category === "servicios"
+                        ? "Servicio"
+                        : "Juego";
+
+
+            const title =
+                document.createElement("h3");
+
+
+            title.textContent =
+                group.key;
+
+
+            const description =
+                document.createElement("p");
+
+
+            description.textContent =
+                group.description;
+
+
+            const button =
+                document.createElement("button");
+
+
+            button.className =
+                "group-button";
+
+
+            button.type =
+                "button";
+
+
+            button.textContent =
+                group.category === "giftcards"
+                    ? "🎁 Ver Gift Cards"
+                    : "👀 Ver precios";
+
+
+            button.addEventListener(
+                "click",
+                () => openGroupCatalog(
+                    group.key
+                )
+            );
+
+
+            body.append(
+                category,
+                title,
+                description,
+                button
+            );
+
+
+            card.append(
+                top,
+                body
+            );
+
+
+            productsContainer.appendChild(
+                card
+            );
+
+        }
+    );
+
+
+    /* =====================================================
+       PRODUCTOS INDIVIDUALES
+    ===================================================== */
+
+    individualProducts.forEach(
+        product => {
+
+            const card =
+                document.createElement("article");
+
 
             card.className =
                 "product";
@@ -4278,11 +5551,16 @@ function renderProducts(){
                 )}ms`;
 
 
+            index++;
+
+
             const top =
                 document.createElement("div");
 
+
             top.className =
                 "product-top";
+
 
             top.textContent =
                 product.icon;
@@ -4291,6 +5569,7 @@ function renderProducts(){
             const body =
                 document.createElement("div");
 
+
             body.className =
                 "product-body";
 
@@ -4298,8 +5577,10 @@ function renderProducts(){
             const category =
                 document.createElement("div");
 
+
             category.className =
                 "product-category";
+
 
             category.textContent =
                 product.type;
@@ -4308,12 +5589,14 @@ function renderProducts(){
             const title =
                 document.createElement("h3");
 
+
             title.textContent =
                 product.name;
 
 
             const description =
                 document.createElement("p");
+
 
             description.textContent =
                 product.description;
@@ -4322,76 +5605,9 @@ function renderProducts(){
             const bottom =
                 document.createElement("div");
 
+
             bottom.className =
                 "product-bottom";
-
-
-            /*
-               Gift Cards:
-               solamente se muestra el servicio
-               y un botón para consultar.
-            */
-
-            if(product.consultationOnly){
-
-                const query =
-                    document.createElement("button");
-
-                query.className =
-                    "query-btn";
-
-                query.type =
-                    "button";
-
-                query.textContent =
-                    "💬 Consultar";
-
-                query.addEventListener(
-                    "click",
-                    () => consultProduct(
-                        product.name
-                    )
-                );
-
-
-                body.append(
-                    category,
-                    title,
-                    description
-                );
-
-
-                bottom.append(
-                    query
-                );
-
-
-                body.append(
-                    bottom
-                );
-
-
-                card.append(
-                    top,
-                    body
-                );
-
-
-                productsContainer.appendChild(
-                    card
-                );
-
-
-                return;
-            }
-
-
-            const price =
-                document.createElement("div");
-
-
-            price.className =
-                "price";
 
 
             if(
@@ -4401,53 +5617,122 @@ function renderProducts(){
                 )
             ){
 
-                price.classList.add(
-                    "consult"
+                const query =
+                    document.createElement("button");
+
+
+                query.className =
+                    "query-btn";
+
+
+                query.type =
+                    "button";
+
+
+                query.textContent =
+                    "💬 Consultar";
+
+
+                query.addEventListener(
+                    "click",
+                    () => consultProduct(
+                        product.name
+                    )
                 );
 
-                price.textContent =
-                    "Consultar";
+
+                bottom.append(
+                    query
+                );
 
             }else{
+
+                const priceBox =
+                    document.createElement("div");
+
+
+                const price =
+                    document.createElement("div");
+
+
+                price.className =
+                    "price";
+
 
                 price.textContent =
                     formatUSD(
                         Number(product.price)
                     );
 
+
+                priceBox.appendChild(
+                    price
+                );
+
+
+                const ves =
+                    getVESPrice(
+                        product.price
+                    );
+
+
+                if(ves !== null){
+
+                    const vesElement =
+                        document.createElement("span");
+
+
+                    vesElement.className =
+                        "price-ves";
+
+
+                    vesElement.textContent =
+                        `${formatVES(ves)} Bs.`;
+
+
+                    priceBox.appendChild(
+                        vesElement
+                    );
+
+                }
+
+
+                const add =
+                    document.createElement("button");
+
+
+                add.className =
+                    "add";
+
+
+                add.type =
+                    "button";
+
+
+                add.textContent =
+                    "+";
+
+
+                add.setAttribute(
+                    "aria-label",
+                    `Agregar ${product.name}`
+                );
+
+
+                add.addEventListener(
+                    "click",
+                    () => addToCart(
+                        product.id
+                    )
+                );
+
+
+                bottom.append(
+                    priceBox,
+                    add
+                );
+
             }
-
-
-            const add =
-                document.createElement("button");
-
-
-            add.className =
-                "add";
-
-            add.type =
-                "button";
-
-            add.textContent =
-                "+";
-
-
-            add.setAttribute(
-                "aria-label",
-                `Agregar ${product.name}`
-            );
-
-
-            add.addEventListener(
-                "click",
-                () => addToCart(product.id)
-            );
-
-
-            bottom.append(
-                price,
-                add
-            );
 
 
             body.append(
@@ -4472,6 +5757,366 @@ function renderProducts(){
     );
 
 }
+
+
+/* =========================================================
+   MINI CATÁLOGO
+========================================================= */
+
+function openGroupCatalog(groupName){
+
+    const group =
+        GROUPS.find(
+            item => item.key === groupName
+        );
+
+
+    if(!group){
+        return;
+    }
+
+
+    const products =
+        getGroupProducts(
+            groupName
+        );
+
+
+    catalogModalTitle.textContent =
+        group.key;
+
+
+    catalogModalIcon.textContent =
+        group.icon;
+
+
+    catalogModalSubtitle.textContent =
+        `${products.length} opciones disponibles. Selecciona la que necesitas.`;
+
+
+    catalogModalBody.textContent =
+        "";
+
+
+    const miniProducts =
+        document.createElement("div");
+
+
+    miniProducts.className =
+        "mini-products";
+
+
+    products.forEach(
+        product => {
+
+            const row =
+                document.createElement("div");
+
+
+            row.className =
+                "mini-product";
+
+
+            const info =
+                document.createElement("div");
+
+
+            info.className =
+                "mini-product-info";
+
+
+            const name =
+                document.createElement("div");
+
+
+            name.className =
+                "mini-product-name";
+
+
+            name.textContent =
+                product.name;
+
+
+            const description =
+                document.createElement("div");
+
+
+            description.className =
+                "mini-product-description";
+
+
+            description.textContent =
+                product.description;
+
+
+            info.append(
+                name,
+                description
+            );
+
+
+            const price =
+                document.createElement("div");
+
+
+            price.className =
+                "mini-product-price";
+
+
+            if(
+                product.price === null ||
+                !Number.isFinite(
+                    Number(product.price)
+                )
+            ){
+
+                price.textContent =
+                    "Consultar precio";
+
+            }else{
+
+                price.textContent =
+                    formatUSD(
+                        Number(product.price)
+                    );
+
+
+                const ves =
+                    getVESPrice(
+                        product.price
+                    );
+
+
+                if(ves !== null){
+
+                    const vesElement =
+                        document.createElement("div");
+
+
+                    vesElement.className =
+                        "mini-product-ves";
+
+
+                    vesElement.textContent =
+                        `${formatVES(ves)} Bs.`;
+
+
+                    price.appendChild(
+                        vesElement
+                    );
+
+                }
+
+            }
+
+
+            info.appendChild(
+                price
+            );
+
+
+            const action =
+                document.createElement("div");
+
+
+            action.className =
+                "mini-product-action";
+
+
+            if(product.consultationOnly){
+
+                const button =
+                    document.createElement("button");
+
+
+                button.className =
+                    "mini-consult";
+
+
+                button.type =
+                    "button";
+
+
+                button.textContent =
+                    "Consultar";
+
+
+                button.addEventListener(
+                    "click",
+                    () => consultProduct(
+                        product.name
+                    )
+                );
+
+
+                action.appendChild(
+                    button
+                );
+
+            }else if(
+                product.price === null ||
+                !Number.isFinite(
+                    Number(product.price)
+                )
+            ){
+
+                const button =
+                    document.createElement("button");
+
+
+                button.className =
+                    "mini-consult";
+
+
+                button.type =
+                    "button";
+
+
+                button.textContent =
+                    "Consultar";
+
+
+                button.addEventListener(
+                    "click",
+                    () => consultProduct(
+                        product.name
+                    )
+                );
+
+
+                action.appendChild(
+                    button
+                );
+
+            }else{
+
+                const button =
+                    document.createElement("button");
+
+
+                button.className =
+                    "mini-add";
+
+
+                button.type =
+                    "button";
+
+
+                button.textContent =
+                    "+";
+
+
+                button.setAttribute(
+                    "aria-label",
+                    `Agregar ${product.name}`
+                );
+
+
+                button.addEventListener(
+                    "click",
+                    () => {
+
+                        addToCart(
+                            product.id
+                        );
+
+                    }
+                );
+
+
+                action.appendChild(
+                    button
+                );
+
+            }
+
+
+            row.append(
+                info,
+                action
+            );
+
+
+            miniProducts.appendChild(
+                row
+            );
+
+        }
+    );
+
+
+    catalogModalBody.appendChild(
+        miniProducts
+    );
+
+
+    catalogModalOverlay.classList.add(
+        "show"
+    );
+
+
+    catalogModalOverlay.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+
+
+    document.body.style.overflow =
+        "hidden";
+
+}
+
+
+/* =========================================================
+   CERRAR MINI CATÁLOGO
+========================================================= */
+
+function closeGroupCatalog(){
+
+    catalogModalOverlay.classList.remove(
+        "show"
+    );
+
+
+    catalogModalOverlay.setAttribute(
+        "aria-hidden",
+        "true"
+    );
+
+
+    if(
+        !cartPanel.classList.contains("show")
+    ){
+
+        document.body.style.overflow =
+            "";
+
+    }
+
+}
+
+
+catalogModalClose.addEventListener(
+    "click",
+    closeGroupCatalog
+);
+
+
+catalogModalOverlay.addEventListener(
+    "click",
+    event => {
+
+        if(
+            event.target ===
+            catalogModalOverlay
+        ){
+
+            closeGroupCatalog();
+
+        }
+
+    }
+);
 
 
 /* =========================================================
@@ -4575,6 +6220,21 @@ function addToCart(id){
 
         showToast(
             "Producto no disponible."
+        );
+
+        return;
+    }
+
+
+    if(
+        product.price === null ||
+        !Number.isFinite(
+            Number(product.price)
+        )
+    ){
+
+        consultProduct(
+            product.name
         );
 
         return;
@@ -4717,8 +6377,6 @@ function renderCart(){
 
     let quantityTotal = 0;
 
-    let hasConsultations = false;
-
 
     cart.forEach(item => {
 
@@ -4726,7 +6384,10 @@ function renderCart(){
             getProductById(item.id);
 
 
-        if(!product){
+        if(
+            !product ||
+            product.price === null
+        ){
             return;
         }
 
@@ -4777,22 +6438,19 @@ function renderCart(){
             "cart-item-meta";
 
 
-        if(product.price === null){
+        meta.textContent =
+            `${product.type} · ${formatUSD(
+                product.price
+            )} c/u`;
 
-            hasConsultations = true;
+
+        const subtotal =
+            product.price *
+            quantity;
 
 
-            meta.textContent =
-                `${product.type} · Precio por consultar`;
-
-        }else{
-
-            meta.textContent =
-                `${product.type} · ${formatUSD(
-                    product.price
-                )} c/u`;
-
-        }
+        total +=
+            subtotal;
 
 
         const subtotalElement =
@@ -4803,23 +6461,35 @@ function renderCart(){
             "cart-item-price";
 
 
-        if(product.price === null){
-
-            subtotalElement.textContent =
-                "Consultar";
-
-        }else{
-
-            const subtotal =
-                product.price *
-                quantity;
+        subtotalElement.textContent =
+            formatUSD(
+                subtotal
+            );
 
 
-            total += subtotal;
+        const ves =
+            getVESPrice(
+                subtotal
+            );
 
 
-            subtotalElement.textContent =
-                formatUSD(subtotal);
+        if(ves !== null){
+
+            const vesElement =
+                document.createElement("div");
+
+
+            vesElement.className =
+                "cart-item-ves";
+
+
+            vesElement.textContent =
+                `${formatVES(ves)} Bs.`;
+
+
+            subtotalElement.appendChild(
+                vesElement
+            );
 
         }
 
@@ -4950,15 +6620,26 @@ function renderCart(){
             : String(quantityTotal);
 
 
-    if(hasConsultations){
+    cartTotal.textContent =
+        formatUSD(total);
 
-        cartTotal.textContent =
-            `${formatUSD(total)} + consulta`;
 
-    }else{
+    const totalVES =
+        getVESPrice(total);
 
-        cartTotal.textContent =
-            formatUSD(total);
+
+    if(totalVES !== null){
+
+        const ves =
+            document.createElement("small");
+
+
+        ves.textContent =
+            `${formatVES(totalVES)} Bs.`;
+
+        cartTotal.appendChild(
+            ves
+        );
 
     }
 
@@ -5007,8 +6688,17 @@ function closeCart(){
         "true"
     );
 
-    document.body.style.overflow =
-        "";
+
+    if(
+        !catalogModalOverlay.classList.contains(
+            "show"
+        )
+    ){
+
+        document.body.style.overflow =
+            "";
+
+    }
 
 }
 
@@ -5048,8 +6738,6 @@ function sendWhatsApp(){
 
     let total = 0;
 
-    let hasConsultations = false;
-
     const lines = [];
 
 
@@ -5059,7 +6747,10 @@ function sendWhatsApp(){
             getProductById(item.id);
 
 
-        if(!product){
+        if(
+            !product ||
+            product.price === null
+        ){
             return;
         }
 
@@ -5070,34 +6761,38 @@ function sendWhatsApp(){
             );
 
 
-        if(product.price === null){
+        const subtotal =
+            product.price *
+            quantity;
 
-            hasConsultations = true;
+
+        total +=
+            subtotal;
 
 
-            lines.push(
-                `• ${product.name} x${quantity} — CONSULTAR PRECIO`
+        let line =
+            `• ${product.name} x${quantity} — ${formatUSD(
+                subtotal
+            )}`;
+
+
+        const ves =
+            getVESPrice(
+                subtotal
             );
 
 
-        }else{
+        if(ves !== null){
 
-            const subtotal =
-                product.price *
-                quantity;
-
-
-            total +=
-                subtotal;
-
-
-            lines.push(
-                `• ${product.name} x${quantity} — ${formatUSD(
-                    subtotal
-                )}`
-            );
+            line +=
+                ` (${formatVES(ves)} Bs.)`;
 
         }
+
+
+        lines.push(
+            line
+        );
 
     });
 
@@ -5105,17 +6800,37 @@ function sendWhatsApp(){
     if(lines.length === 0){
 
         showToast(
-            "No hay productos válidos en el carrito."
+            "No hay productos con precio en el carrito."
         );
 
         return;
     }
 
 
-    const totalLine =
-        hasConsultations
-            ? `💰 Total de productos con precio: ${formatUSD(total)}\nℹ️ Algunos productos requieren consulta de precio.`
-            : `💰 Total: ${formatUSD(total)}`;
+    let totalLine =
+        `💰 Total: ${formatUSD(total)}`;
+
+
+    const totalVES =
+        getVESPrice(total);
+
+
+    if(totalVES !== null){
+
+        totalLine +=
+            `\n💵 Equivalente: ${formatVES(totalVES)} Bs.`;
+
+    }
+
+
+    if(currentUSDT !== null){
+
+        totalLine +=
+            `\n📈 Tasa usada: 1 USDT = ${formatVES(
+                currentUSDT
+            )} Bs.`;
+
+    }
 
 
     const message =
@@ -5189,6 +6904,8 @@ document.addEventListener(
 
             closeCart();
 
+            closeGroupCatalog();
+
         }
 
     }
@@ -5215,7 +6932,6 @@ document.addEventListener(
     );
 
 })();
-
 </script>
 
 </body>
